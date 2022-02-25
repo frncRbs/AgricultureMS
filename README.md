@@ -5,40 +5,16 @@
 <p align="center">🚀 A web application that allows an admin, personnel, and farmer to manage agricultural environments as in their role. </p>
 
 ## Screenshots
-<table align="center">
-  <tr>
-    <th>Homepage</th>
-  </tr>
-  <tr>
-    <th>Login</th>
-  </tr>
-  <tr>
-    <th>Signup</th>
-  </tr>
-  <tr>
-    <th>Dashboard</th>
-  </tr>
-  <tr>
-    <th>Register Coordinator</th>
-  </tr>
-  <tr>
-    <td>
-      <img src="./screenshots/login.jpg" alt="login"/>
-    </td>
-    <td>
-      <img src="./screenshots/signup.jpg" alt="signup"/>
-    </td>
-    <td>
-      <img src="./screenshots/homepage.jpg" alt="homepage"/>
-    </td>
-    <td>
-      <img src="./screenshots/dashboard.jpg" dlt="dashboard"/>
-    </td>
-    <td>
-      <img src="./screenshots/dashboard-register.jpg" dlt="dashboard-register"/>
-    </td>
-  </tr>
-</table>
+
+Signup
+<img src="./screenshots/signup.JPG" alt="signup"/>
+Homepage
+<img src="./screenshots/homepage.JPG" alt="homepage"/>
+Dashboard
+<img src="./screenshots/dashboard.JPG" dlt="dashboard"/>
+Register Coordinator
+<img src="./screenshots/dashboard-register.JPG" dlt="dashboard-register"/>
+
 
 ## Technologies 
 
@@ -52,10 +28,6 @@
 -   Babel - Loader and Compiler/Transpiler
 -   Jest - Testing Framework
 
-<!-- Username: FranceRebollos007
-Password: good_Game007 -->
-
-
 <!-- MEMBERS-LIST  -->
 ## MEMBERS 
 
@@ -66,29 +38,21 @@ Password: good_Game007 -->
       <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhg-eM9fZX7D8Jf3bdcBwV91f6RCGM7FJ5npKy3XHMKcf3ZV_0vOU5qpQUibyh3nfXLWo&usqp=CAU" width="100px;" alt="Member France"/><br />
       <sub><b>France Rebollos</b></sub></a><br /><a href="COMMITS" title="Developer">🖥 Developer</a>
     </td>
-  </tr>
-  <tr>
     <td align="center">
       <a href="https://github.com/france-stack007">
       <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhg-eM9fZX7D8Jf3bdcBwV91f6RCGM7FJ5npKy3XHMKcf3ZV_0vOU5qpQUibyh3nfXLWo&usqp=CAU" width="100px;" alt="Member Morf Jethro"/><br />
       <sub><b>Jethro Guerrero</b></sub></a><br /><a href="COMMITS" title="Project Manager">📋 Project Manager</a>
     </td>
-  </tr>
-  <tr>
     <td align="center">
       <a href="https://github.com/knownasJenny">
       <img src="https://avatars.githubusercontent.com/u/84020856?v=4" width="100px;" alt="Member Jenny"/><br />
       <sub><b>Jenny Pieloor</b></sub></a><br /><a href="COMMITS" title="UIUX Designer">🎨 UI/UX Designer</a>
     </td>
-  </tr>
-  <tr>
     <td align="center">
       <a href="https://github.com/thirdyfrancis1">
       <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhg-eM9fZX7D8Jf3bdcBwV91f6RCGM7FJ5npKy3XHMKcf3ZV_0vOU5qpQUibyh3nfXLWo&usqp=CAU" width="100px;" alt="Member G-Third"/><br />
       <sub><b>G-Third Francisco</b></sub></a><br /><a href="COMMITS" title="uality Assurance">🧿 Quality Assurance </a>
     </td>
-  </tr>
-  <tr>
     <td align="center">
       <a href="https://github.com/france-stack007">
       <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhg-eM9fZX7D8Jf3bdcBwV91f6RCGM7FJ5npKy3XHMKcf3ZV_0vOU5qpQUibyh3nfXLWo&usqp=CAU" width="100px;" alt="Member Morf"/><br />

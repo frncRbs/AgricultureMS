@@ -1,0 +1,4 @@
+const truncateString = (str, num) =>
+  str.length <= num ? str : `${str.slice(0, num)}...`;
+
+export default truncateString;

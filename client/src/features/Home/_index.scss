@@ -1,0 +1,40 @@
+.home {
+    height: 100vh;
+    display: grid;
+    place-items: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    &__content {
+        display: grid;
+        place-items: center;
+        text-align: center;
+        color: var(--white-1);
+        .heading {
+            display: grid;
+            line-height: 30px;
+            h1,
+            p {
+                color: var(--white-1);
+            }
+            h1 {
+                font-size: 6.5rem;
+            }
+            p {
+                font-size: 1.7rem;
+            }
+        }
+        .footer {
+            padding: 2em;
+            display: flex;
+            width: 30em;
+            gap: 1em;
+            align-items: center;
+            .secondary.login {
+                background-color: var(--white-1);
+                &:hover {
+                    background-color: var(--white-2);
+                }
+            }
+        }
+    }
+}

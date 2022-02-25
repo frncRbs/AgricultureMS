@@ -1,0 +1,45 @@
+const { POST, GET, DELETE } = require('constants/methods');
+const { authenticate } = require('middlewares/middleware.protect-route.js');
+const validateFieldsFor = require('middlewares/middleware.validator');
+const {
+    login,
+    register,
+    logout,
+    changePassword,
+    getHeaderAuth,
+} = require('auth.controller');
+
+const authRoutes = [
+    {
+        path: '/login',
+        method: POST,
+        controller: login,
+        localMiddlewares: [validateFieldsFor('login')],
+    },
+    {
+        path: '/register',
+        method: POST,
+        controller: register,
+        localMiddlewares: [validateFieldsFor('register')],
+    },
+    {
+        path: '/logout',
+        method: DELETE,
+        controller: logout,
+        localMiddlewares: [],
+    },
+    {
+        path: '/header',
+        method: GET,
+        controller: getHeaderAuth,
+        localMiddlewares: [],
+    },
+    {
+        path: '/change_password',
+        method: POST,
+        controller: changePassword,
+        localMiddlewares: [authenticate, validateFieldsFor('changePassword')],
+    },
+];
+
+module.exports = authRoutes;

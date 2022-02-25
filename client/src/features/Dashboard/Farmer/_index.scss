@@ -1,0 +1,36 @@
+.screen__dashboard {
+    height: auto;
+    display: grid;
+    grid-gap: 2em;
+    &--filter {
+        display: flex;
+        justify-content: end;
+        height: 50px;
+        gap: 1em;
+        .input__text {
+            //select input
+            display: flex;
+            width: auto;
+            gap: 1em;
+            select {
+                height: 50px;
+                padding: 0 1em 0 1em;
+            }
+        }
+        button {
+            width: 10em;
+        }
+    }
+    &-records {
+        display: flex;
+        gap: 1em;
+        align-items: center;
+        width: auto;
+        .records {
+            border-radius: 5px;
+            padding: 1em;
+            width: 100%;
+            text-align: center;
+        }
+    }
+}

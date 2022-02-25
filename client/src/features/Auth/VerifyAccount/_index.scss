@@ -1,0 +1,19 @@
+.verify__account {
+    height: 100vh;
+    display: grid;
+    place-items: center;
+    .content {
+        display: grid;
+        grid-gap: 1em;
+        text-align: center;
+        width: 40em;
+        .heading {
+            p {
+                color: var(--black-2);
+            }
+        }
+        button {
+            max-width: 10em;
+        }
+    }
+}

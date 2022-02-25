@@ -1,0 +1,19 @@
+th {
+    background-color: var(--green-1);
+    color: var(--white-1);
+}
+
+tr {
+    background-color: var(--white-0);
+}
+
+tr,
+th,
+td {
+    border: 0.8 var(--gray-1) solid;
+}
+
+th,
+td {
+    padding: 1em;
+}

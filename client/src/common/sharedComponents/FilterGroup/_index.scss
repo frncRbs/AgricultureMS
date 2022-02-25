@@ -1,0 +1,19 @@
+.filter__group {
+    display: flex;
+    justify-content: end;
+    height: 50px;
+    gap: 1em;
+    .input__text {
+        //select input
+        display: flex;
+        width: auto;
+        gap: 1em;
+        select {
+            height: 50px;
+            padding: 0 1em 0 1em;
+        }
+    }
+    button {
+        width: 10em;
+    }
+}

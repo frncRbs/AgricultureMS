@@ -1,0 +1,47 @@
+@import '../../styles/mixins';
+.form {
+    height: 100vh;
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    align-items: center;
+    justify-content: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    grid-gap: 1em;
+    form {
+        @include breakpoint(mobile) {
+            width: unset;
+        }
+        width: 30em;
+        padding: 1em;
+        .content {
+            display: grid;
+            grid-gap: 0.8em;
+            .body {
+                display: grid;
+                grid-gap: 1em;
+                .message {
+                    p {
+                        float: right;
+                        font-size: 0.9rem;
+                        text-decoration: underline;
+                        cursor: pointer;
+                    }
+                }
+            }
+            .heading {
+                text-align: center;
+                h1 {
+                    font-size: 3rem;
+                    line-height: 1.2em;
+                    @include breakpoint(mobile) {
+                        font-size: 2.3rem;
+                    }
+                }
+                p {
+                    margin-top: 1em;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,11 @@
+.heading__controller {
+    border-top: 1px solid var(--green-1);
+    border-bottom: 1px solid var(--green-1);
+    padding: 1em;
+    background-color: var(--white-0);
+    text-align: start;
+    p {
+        color: var(--green-1);
+        font-weight: bold;
+    }
+}

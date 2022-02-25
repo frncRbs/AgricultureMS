@@ -1,0 +1,18 @@
+button.primary {
+    background: var(--green-2);
+    color: var(--white-1);
+}
+
+button.primary:hover {
+    background: var(--green-1);
+}
+
+button.secondary {
+    color: var(--green-1);
+    // border: 0.5px solid var(--green-1);
+}
+
+button.secondary:hover {
+    background: var(--white-1);
+    color: var(--green-1);
+}

@@ -1,17 +1,17 @@
 const joi = require('joi');
 
 const fields = {
-    firstName: joi.string().trim().required(),
+    firstname: joi.string().trim().required(),
 
-    middleName: joi.string().trim(),
+    middlename: joi.string().trim(),
 
-    lastName: joi.string().trim().required(),
+    lastname: joi.string().trim().required(),
 
     gender: joi.string().trim().required(),
 
     role: joi.string().trim(),
 
-    isActivated: joi.string().trim().required(),
+    isActivated: joi.number().trim().required(),
 
     username: joi.string().trim().alphanum().min(3).max(30).required(),
 
@@ -52,12 +52,12 @@ const validateFieldsFor = {
     }),
 
     createPersonnel: joi.object({
-        firstName: fields.firstName,
-        lastName: fields.lastName,
+        firstname: fields.firstname,
+        lastname: fields.lastname,
         gender: fields.gender,
         role: fields.role,
         isActivated: fields.isActivated,
-        middleName: fields.middleName,
+        middlename: fields.middlename,
         username: fields.username,
         password: fields.password,
         mobileNumber: fields.mobileNumber,

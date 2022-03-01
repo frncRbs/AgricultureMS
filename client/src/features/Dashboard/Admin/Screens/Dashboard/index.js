@@ -61,6 +61,41 @@ const Dashboard = () => {
         },
     ];
 
+    const table = {
+        heading: [
+            'Reference No',
+            'Last Name',
+            'First Name',
+            'Middle Name',
+            'Gender',
+            'Program',
+            'Date Active',
+            'Number of Ferms',
+        ],
+        data: [
+            {
+                reference: '33',
+                lastName: 'Pedro',
+                firstName: 'Juan',
+                gender: 'Male',
+                middleName: 'Luu',
+                program: 'Crops',
+                dateActive: '01/11/11',
+                numberOfFerms: '2',
+            },
+            {
+                reference: '3232',
+                lastName: 'Jeth',
+                gender: 'Male',
+                firstName: 'Lee',
+                middleName: 'Lee',
+                program: 'Crops',
+                dateActive: '02/22/21',
+                numberOfFerms: '2',
+            },
+        ],
+    };
+
     return (
         <div className="screen__dashboard">
             <div className="top__heading">
@@ -92,7 +127,7 @@ const Dashboard = () => {
                 ))}
             </div>
 
-            <Table />
+            <Table type="admin_dashboard" table={table} />
         </div>
     );
 };

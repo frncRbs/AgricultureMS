@@ -31,6 +31,28 @@ const SetProgram = () => {
         },
     ];
 
+    const table = {
+        heading: ['ID', 'Services', 'Actions'],
+        data: [
+            {
+                id: '1',
+                services: 'dasddddddddddddddddddddddddas',
+                actions: {
+                    delete: () => {},
+                    edit: () => {},
+                },
+            },
+            {
+                id: '2',
+                services: 'zxz',
+                actions: {
+                    delete: () => {},
+                    edit: () => {},
+                },
+            },
+        ],
+    };
+
     return (
         <div className="set__program">
             <div className="top__heading">
@@ -52,7 +74,7 @@ const SetProgram = () => {
                 </FilterGroup>
             </div>
 
-            <Table />
+            <Table type="set_program" table={table} />
         </div>
     );
 };

@@ -1,4 +1,4 @@
-const User = require('auth.model');
+const User = require('model.user');
 const {
     comparePassword,
     hashPassword,

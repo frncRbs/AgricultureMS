@@ -29,7 +29,48 @@ import PublicRoute from './PublicRoute';
 
 const history = createBrowserHistory();
 
-const NotFound = () => <h1>Not Found </h1>;
+const NotFound = () => <h1>Not Found</h1>;
+
+const provideRouteBasedOnRole = (role) => {
+    let route = null;
+
+    switch (role) {
+        case roles['admin']:
+            route = admin.menu.map((subRoute, i) => (
+                <Route
+                    key={i}
+                    index
+                    path={subRoute.path}
+                    element={subRoute.display}
+                />
+            ));
+            break;
+        case roles['personnel']:
+            route = personnel.menu.map((subRoute, i) => (
+                <Route
+                    key={i}
+                    index
+                    path={subRoute.path}
+                    element={subRoute.display}
+                />
+            ));
+            break;
+        case roles['farmer']:
+            route = farmer.menu.map((subRoute, i) => (
+                <Route
+                    key={i}
+                    index
+                    path={subRoute.path}
+                    element={subRoute.display}
+                />
+            ));
+            break;
+        default:
+            break;
+    }
+
+    return route;
+};
 
 /* Main Routes */
 const RootRoutes = () => {
@@ -80,38 +121,7 @@ const RootRoutes = () => {
                         </PrivateRoute>
                     }
                 >
-                    {
-                        /* ADMIN ROUTES */
-                        currentUser['role'] === roles['admin']
-                            ? admin.menu.map((subRoute, i) => (
-                                  <Route
-                                      key={i}
-                                      index
-                                      path={subRoute.path}
-                                      element={subRoute.display}
-                                  />
-                              ))
-                            : /* PERSONNEL ROUTES */
-                            currentUser['role'] === roles['personnel']
-                            ? personnel.menu.map((subRoute, i) => (
-                                  <Route
-                                      key={i}
-                                      index
-                                      path={subRoute.path}
-                                      element={subRoute.display}
-                                  />
-                              ))
-                            : /* FARMER ROUTES */
-                              currentUser['role'] === roles['farmer'] &&
-                              farmer.menu.map((subRoute, i) => (
-                                  <Route
-                                      key={i}
-                                      index
-                                      path={subRoute.path}
-                                      element={subRoute.display}
-                                  />
-                              ))
-                    }
+                    {provideRouteBasedOnRole(currentUser['role'])}
                 </Route>
                 <Route path="*" element={<NotFound />} />
             </Routes>

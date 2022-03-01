@@ -1,7 +1,7 @@
 const { setConnection } = require('server');
 const mapObjectKey = require('util.map.object-key');
 
-class User {
+class Program {
     constructor() {}
 
     /**
@@ -11,9 +11,7 @@ class User {
     static async findOne(identifier) {
         const { toPlaceholder, toObjectValue } = mapObjectKey(identifier);
 
-        const sql = `SELECT * FROM users WHERE ${toPlaceholder}`;
-
-        console.log({ sql });
+        const sql = `SELECT * FROM programs WHERE ${toPlaceholder}`;
 
         const response = await setConnection(sql, toObjectValue);
 
@@ -27,9 +25,7 @@ class User {
     static async create(data) {
         const { toPlaceholder, toObjectValue } = mapObjectKey(data);
 
-        const sql = `INSERT INTO users SET ${toPlaceholder}`;
-
-        console.log({ sql });
+        const sql = `INSERT INTO programs SET ${toPlaceholder}`;
 
         const response = await setConnection(sql, toObjectValue);
 
@@ -45,9 +41,7 @@ class User {
         const mappedIdentifier = mapObjectKey(identifier);
         const mappedData = mapObjectKey(data);
 
-        const sql = `UPDATE users SET ${mappedData.toPlaceholder} WHERE ${mappedIdentifier.toObjectKey} = '${mappedIdentifier.toObjectValue[0]}'`;
-
-        console.log({ sql });
+        const sql = `UPDATE programs SET ${mappedData.toPlaceholder} WHERE ${mappedIdentifier.toObjectKey} = '${mappedIdentifier.toObjectValue[0]}'`;
 
         const response = await setConnection(sql, mappedData.toObjectValue);
 
@@ -55,4 +49,4 @@ class User {
     }
 }
 
-module.exports = User;
+module.exports = Program;

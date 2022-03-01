@@ -8,15 +8,17 @@ const { createPersonnelAccount } = require('admin.controller');
 
 const rolePath = '/admin';
 
-const adminRoutes = [{
-    path: `${rolePath}/create_personnel`,
-    method: POST,
-    controller: createPersonnelAccount,
-    localMiddlewares: [
-        authenticate,
-        verifyAdmin,
-        validateFieldsFor('createPersonnel'),
-    ],
-}, ];
+const adminRoutes = [
+    {
+        path: `${rolePath}/create_personnel`,
+        method: POST,
+        controller: createPersonnelAccount,
+        localMiddlewares: [
+            authenticate,
+            verifyAdmin,
+            validateFieldsFor('createPersonnel'),
+        ],
+    },
+];
 
 module.exports = adminRoutes;

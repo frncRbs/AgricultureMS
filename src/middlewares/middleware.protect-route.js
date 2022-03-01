@@ -13,7 +13,8 @@ class ProtectRoute {
         const { authorization } = req.headers;
         let accessToken = null;
 
-        if (authorization && authorization.startsWidth('Bearer')) {
+        console.log('authorization', authorization);
+        if (authorization && authorization.startsWith('Bearer')) {
             accessToken = authorization.split(' ')[1];
         }
 
@@ -35,13 +36,13 @@ class ProtectRoute {
         const { authorization } = req.headers;
         let accessToken = null;
 
-        if (authorization && authorization.startsWidth('Bearer')) {
+        console.log({ authorization });
+        if (authorization && authorization.startsWith('Bearer')) {
             accessToken = authorization.split(' ')[1];
         }
 
         const { role } = await verifyAccessToken(accessToken);
 
-        console.log({ role, ADMIN_ROLE });
         if (role !== ADMIN_ROLE) {
             return sendResponse({
                 res,
@@ -58,7 +59,7 @@ class ProtectRoute {
         const { authorization } = req.headers;
         let accessToken = null;
 
-        if (authorization && authorization.startsWidth('Bearer')) {
+        if (authorization && authorization.startsWith('Bearer')) {
             accessToken = authorization.split(' ')[1];
         }
 
@@ -80,7 +81,7 @@ class ProtectRoute {
         const { authorization } = req.headers;
         let accessToken = null;
 
-        if (authorization && authorization.startsWidth('Bearer')) {
+        if (authorization && authorization.startsWith('Bearer')) {
             accessToken = authorization.split(' ')[1];
         }
 

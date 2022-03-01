@@ -1,3 +1,9 @@
+.top__heading {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+}
+
 .screen__dashboard {
     height: auto;
     display: grid;
@@ -13,11 +19,6 @@
             width: 100%;
             text-align: center;
         }
-    }
-    .top__heading {
-        display: grid;
-        grid-template-columns: 1fr auto;
-        align-items: center;
     }
 }
 
@@ -54,6 +55,8 @@
 }
 
 .set__program {
+    display: grid;
+    grid-gap: 2em;
     .content {
         &--add-prop {
             width: 20em;

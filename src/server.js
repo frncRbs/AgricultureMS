@@ -68,14 +68,14 @@ class Server {
         /* Success Response */
         Object.keys(user).length
             ? res.status(statusCode).json({
-                isSuccess,
-                message,
-                user, // {username, role, isActivated, accessToken}
-            })
+                  isSuccess,
+                  message,
+                  user, // {username, role, isActivated, accessToken}
+              })
             : res.status(statusCode).json({
-                isSuccess,
-                message,
-            });
+                  isSuccess,
+                  message,
+              });
     }
 }
 

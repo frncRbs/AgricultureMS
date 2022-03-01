@@ -46,14 +46,14 @@ class AuthController {
     async register(req, res) {
         const { username, password, repeatPassword, mobileNumber } = req.body;
 
-        const { insertUser, isAlreadyRegistered } = await authService.register({
+        const { create, isAlreadyRegistered } = await authService.register({
             username,
             password,
             repeatPassword,
             mobileNumber,
         });
 
-        if (isAlreadyRegistered.length) {
+        if (isAlreadyRegistered) {
             return sendResponse({
                 res,
                 statusCode: 401,
@@ -62,9 +62,7 @@ class AuthController {
             });
         }
 
-        const newUser = await insertUser();
-
-        console.log({ newUser });
+        await create();
 
         return sendResponse({
             res,
@@ -108,7 +106,7 @@ class AuthController {
 
     /* Change Password */
     async changePassword(req, res) {
-        const { accessToken } = req.cookies;
+        const accessToken = req.headers.authorization.split(' ')[1];
         const { currentPassword, newPassword } = req.body;
 
         const { isVerified, updatePassword, isPasswordMatch } =

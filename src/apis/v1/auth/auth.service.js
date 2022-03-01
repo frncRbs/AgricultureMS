@@ -1,27 +1,15 @@
-const { setConnection } = require('server');
+const User = require('auth.model');
 const {
     comparePassword,
     hashPassword,
 } = require('helpers/utils/util.password');
-const createQueryStatement = require('helpers/queries/query.statements');
-const {
-    QUERY_SELECT_USER,
-    QUERY_INSERT_USER,
-    QUERY_UPDATE_PASSWORD,
-} = require('constants/queries');
 const { removeCookie } = require('helpers/utils/util.cookies');
-const { getHeader } = require('helpers/utils/util.header');
+const { verifyAccessToken } = require('helpers/utils/util.token');
 
 class AuthService {
     /* Login Service */
     async login({ username, password }) {
-        const querySelectUserStatement =
-            createQueryStatement(QUERY_SELECT_USER);
-
-        const result = await setConnection(querySelectUserStatement, [
-            username,
-            password,
-        ]);
+        const result = await User.findOne({ username });
 
         const isPasswordMatch = await comparePassword(username, password);
 
@@ -32,26 +20,15 @@ class AuthService {
 
     /* Register Service */
     async register({ username, password, repeatPassword, mobileNumber }) {
-        const encryptedPassword = hashPassword(password);
+        const encryptedPassword = await hashPassword(password);
 
-        const queryInsertUserStatement =
-            createQueryStatement(QUERY_INSERT_USER);
-        const querySelectUserStatement =
-            createQueryStatement(QUERY_SELECT_USER);
+        const isAlreadyRegistered = await User.findOne({ username });
 
-        const newUser = [username, encryptedPassword, mobileNumber];
-
-        /* Query existing user and throw an error*/
-        const isAlreadyRegistered = await setConnection(
-            querySelectUserStatement,
-            newUser
-        );
+        const newUser = { username, password: encryptedPassword, mobileNumber };
 
         return {
-            isAlreadyRegistered,
-            insertUser: async () => {
-                return await setConnection(queryInsertUserStatement, newUser);
-            },
+            isAlreadyRegistered: isAlreadyRegistered.length,
+            create: async () => await User.create(newUser),
         };
     }
 
@@ -62,30 +39,22 @@ class AuthService {
     }
 
     /* Change Password Service*/
-    async changePassword({ accessToken, currentPassword, newPassword }) {
-        const hashedNewPassword = hashPassword(newPassword);
-
-        const queryUpdatePasswordStatement = createQueryStatement(
-            QUERY_UPDATE_PASSWORD
-        );
-
+    async changePassword({ accessToken, currentPassword, newPassword, req }) {
         const { isVerified, username } = await verifyAccessToken(accessToken);
 
         const isPasswordMatch = await comparePassword(
-            req.cookies,
+            username,
             currentPassword
         );
 
         return {
             isVerified,
-            username,
             isPasswordMatch,
-            updatePassword: async () => {
-                await setConnection(queryUpdatePasswordStatement, [
-                    hashedNewPassword,
-                    username,
-                ]);
-            },
+            updatePassword: async () =>
+                await User.updateOne(
+                    { username },
+                    { password: hashPassword(newPassword) }
+                ),
         };
     }
 }

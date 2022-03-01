@@ -14,42 +14,22 @@ const hashPassword = (password) => {
     return hashPassword;
 };
 
-const comparePassword = async(identifier, userPassword) => {
+const comparePassword = async (identifier, userPassword) => {
     let isPasswordVerified = false;
     const querySelectUser = createQueryStatement(QUERY_SELECT_USER);
 
-    /* Checking if we pass an object */
-    if (typeof identifier === 'object') {
-        const request = identifier;
-        if (!request.accessToken) return false;
+    const username = identifier;
+    if (!username) return false;
 
-        const { username } = verify(request.accessToken, ACCESS_TOKEN);
+    const [RowDataPacket] = await setConnection(querySelectUser, [username]);
 
-        const [RowDataPacket] = await setConnection(querySelectUser, [
-            username,
-        ]);
+    if (!Object.keys(RowDataPacket).length) return false;
 
-        if (!RowDataPacket) return false;
+    const passwordFromDb = RowDataPacket['password'];
 
-        const passwordFromDb = RowDataPacket['password'];
-
-        /* It would return true or false */
-        isPasswordVerified = compareSync(userPassword, passwordFromDb);
-    } else {
-        const username = identifier;
-        if (!username) return false;
-
-        const [RowDataPacket] = await setConnection(querySelectUser, [
-            username,
-        ]);
-
-        if (!RowDataPacket) return false;
-
-        const passwordFromDb = RowDataPacket['password'];
-
-        /* It would return true or false */
-        isPasswordVerified = compareSync(userPassword, passwordFromDb);
-    }
+    /* It would return true or false */
+    isPasswordVerified = compareSync(userPassword, passwordFromDb);
+    console.log({ userPassword, passwordFromDb });
 
     return isPasswordVerified;
 };

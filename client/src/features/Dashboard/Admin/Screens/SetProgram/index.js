@@ -1,27 +1,58 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 
-import { Heading, Input, Button } from '../../../../../common';
+import {
+    Heading,
+    Input,
+    Button,
+    FilterGroup,
+    Table,
+    Icon,
+} from '../../../../../common';
 
 import '../../_index.scss';
 
 const SetProgram = () => {
     const { register, handleSubmit } = useForm();
 
+    const programs = [
+        {
+            name: 'Program',
+            value: 'Value 1',
+            disabled: true,
+        },
+        {
+            name: 'Crops',
+            value: 'Value 2',
+        },
+        {
+            name: 'Services',
+            value: 'Value 2',
+        },
+    ];
+
     return (
         <div className="set__program">
-            <Heading type="dashboard" text="Add Crops" />
-            <form className="content">
-                <div className="content--add-prop">
+            <div className="top__heading">
+                <Heading type="dashboard" text="Services & Crops" />
+                <FilterGroup>
                     <Input
-                        type="text"
-                        name="crops"
-                        placeholder="Crop's Name"
+                        type="select"
+                        data={programs}
+                        name="program"
                         register={register}
+                        required
                     />
-                    <Button name="Add Crop" style="primary" type="submit" />
-                </div>
-            </form>
+                    <Icon
+                        name="add"
+                        color="var(--green-1)"
+                        size="50"
+                        extraStyles={{ cursor: 'pointer' }}
+                    />
+                </FilterGroup>
+            </div>
+
+            <Table />
         </div>
     );
 };

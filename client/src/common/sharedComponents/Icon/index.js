@@ -10,15 +10,25 @@ import {
     MdManageAccounts,
     MdManageSearch,
     MdNotifications,
+    MdAddCircle,
 } from 'react-icons/md';
 
 /**
  * @link https://react-icons.github.io/react-icons/icons?name=md
  * */
-const Icon = ({ name, size, color }) => {
+const Icon = ({ name, size, color, extraStyles }) => {
     let IconView = null;
 
     switch (name) {
+        case 'add':
+            IconView = (
+                <MdAddCircle
+                    style={{ fill: color, ...extraStyles }}
+                    className="icon"
+                    size={size || 24}
+                />
+            );
+            break;
         case 'person':
             IconView = (
                 <MdPerson

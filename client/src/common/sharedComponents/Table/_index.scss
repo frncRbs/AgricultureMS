@@ -17,3 +17,14 @@ th,
 td {
     padding: 1em;
 }
+
+.col {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    gap: 1em;
+    button {
+        height: 3em;
+        width: 7em;
+    }
+}

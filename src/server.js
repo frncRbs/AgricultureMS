@@ -14,7 +14,7 @@ class Server {
             await this.setConnection();
         });
 
-        // process.setMaxListeners(0);
+        process.setMaxListeners(0);
         process.on('SIGTERM', () => {
             process.close(() => {
                 console.log(`Server Terminated.`);

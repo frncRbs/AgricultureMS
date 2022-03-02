@@ -47,11 +47,16 @@ class Server {
                 console.log(`✔ Database Connected Successfully!`);
 
                 if (query) {
+                    /**
+                     * @param "query" string,
+                     * @param [data] array,
+                     * @param function
+                     */
                     sql.query(query, [...data], (err, results) => {
                         if (err) {
                             reject(err);
                         }
-
+                        console.log(`THIS IS FROM DATABASE: `, results);
                         resolve(results);
 
                         sql.release();
@@ -61,7 +66,7 @@ class Server {
         });
     }
 
-    sendResponse({ res, statusCode, isSuccess, message, user = {} }) {
+    sendResponse({ res, statusCode, isSuccess, message, data, user = {} }) {
         /* Error Response */
         if (!isSuccess) new ApiError(message, statusCode);
 

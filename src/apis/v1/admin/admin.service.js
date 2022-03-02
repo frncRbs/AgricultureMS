@@ -71,7 +71,16 @@ class AdminService {
 
     /* Create New Service*/
     async createNewService(service) {
-        let programFromDb = await Program.create(service);
+        let response = await Program.create(service);
+
+        return {};
+    }
+
+    /* List of Farmers and Personnles  */
+    async listUsers(role) {
+        let users = await User.findAll(role);
+
+        return { users };
     }
 }
 

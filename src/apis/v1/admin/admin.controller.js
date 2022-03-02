@@ -48,7 +48,7 @@ class AdminController {
         return sendResponse({
             res,
             statusCode: 201,
-            isSuccess: false,
+            isSuccess: true,
             message: `Personnel's account successfully created!`,
         });
     }
@@ -57,7 +57,18 @@ class AdminController {
     async deactiveAccount(req, res) {
         const { id } = req.body;
 
+        if (!id) {
+            return sendResponse({
+                res,
+                statusCode: 400,
+                isSuccess: false,
+                message: `Undefined user.`,
+            });
+        }
+
         const { save, isUserExist } = await adminService.deactiveAccount(id);
+
+        console.log({ id });
 
         if (!isUserExist) {
             return sendResponse({
@@ -73,7 +84,7 @@ class AdminController {
         return sendResponse({
             res,
             statusCode: 201,
-            isSuccess: false,
+            isSuccess: true,
             message: `This account was successfully Deactivated!`,
         });
     }
@@ -98,7 +109,7 @@ class AdminController {
         return sendResponse({
             res,
             statusCode: 201,
-            isSuccess: false,
+            isSuccess: true,
             message: `This account was successfully Activated!`,
         });
     }
@@ -113,7 +124,7 @@ class AdminController {
             return sendResponse({
                 res,
                 statusCode: 400,
-                isSuccess: false,
+                isSuccess: true,
                 message: `There is no user with this id ${id}`,
             });
         }
@@ -123,7 +134,7 @@ class AdminController {
         return sendResponse({
             res,
             statusCode: 201,
-            isSuccess: false,
+            isSuccess: true,
             message: `The role of this user has been successfuly updated!`,
         });
     }
@@ -134,11 +145,25 @@ class AdminController {
         const {} = await adminService.createNewService(service);
     }
 
-    async createNewCrop(req, res) {}
+    async createNewCrop(req, res) {
+        
+    }
 
-    async listFarmers(req, res) {}
+    /* List of Farmers and Personnles  */
+    async listUsers(req, res) {
+        const { role } = req.body;
 
-    async listPersonnel(req, res) {}
+        const { users } = await adminService.listUsers({ role });
+
+        console.log({ role, users });
+
+        return sendResponse({
+            res,
+            statusCode: 201,
+            isSuccess: true,
+            message: `Farmers Successfullly Retrieved!`,
+        });
+    }
 }
 
 module.exports = new AdminController();

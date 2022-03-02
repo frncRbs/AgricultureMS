@@ -1,10 +1,5 @@
-const { verify } = require('jsonwebtoken');
 const { genSaltSync, hashSync, compareSync } = require('bcryptjs');
-
-const { QUERY_SELECT_USER } = require('constants/queries');
-const { ACCESS_TOKEN } = require('constants/envs');
-const { setConnection } = require('server');
-const createQueryStatement = require('helpers/queries/query.statements');
+const User = require('model.user');
 
 const hashPassword = (password) => {
     const salt = genSaltSync(10);
@@ -14,22 +9,15 @@ const hashPassword = (password) => {
     return hashPassword;
 };
 
-const comparePassword = async (identifier, userPassword) => {
+const comparePassword = async (username, userPassword) => {
     let isPasswordVerified = false;
-    const querySelectUser = createQueryStatement(QUERY_SELECT_USER);
 
-    const username = identifier;
-    if (!username) return false;
+    const response = await User.findOne({ username });
 
-    const [RowDataPacket] = await setConnection(querySelectUser, [username]);
-
-    if (!Object.keys(RowDataPacket).length) return false;
-
-    const passwordFromDb = RowDataPacket['password'];
+    if (!response.length) isPasswordVerified = false;
 
     /* It would return true or false */
-    isPasswordVerified = compareSync(userPassword, passwordFromDb);
-    console.log({ userPassword, passwordFromDb });
+    isPasswordVerified = compareSync(userPassword, response[0].password);
 
     return isPasswordVerified;
 };

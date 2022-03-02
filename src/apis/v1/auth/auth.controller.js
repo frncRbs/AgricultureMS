@@ -4,6 +4,7 @@ const {
     verifyAccessToken,
 } = require('helpers/utils/util.token');
 const authService = require('auth.service');
+const Relation = require('model.relation');
 
 class AuthController {
     /* Login */
@@ -62,7 +63,10 @@ class AuthController {
             });
         }
 
-        await create();
+        const { insertId } = await create();
+
+        /* Perform relational mapping */
+        await Relation.insert({ userId: insertId, roleId: 1 }, 'UsersRoles');
 
         return sendResponse({
             res,

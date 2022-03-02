@@ -11,7 +11,7 @@ const fields = {
 
     role: joi.string().trim(),
 
-    isActivated: joi.number().trim().required(),
+    isActivated: joi.number().required(),
 
     username: joi.string().trim().alphanum().min(3).max(30).required(),
 

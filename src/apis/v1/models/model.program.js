@@ -6,7 +6,7 @@ class Program {
 
     /**
      * @param - Object {identifier}
-     * @returns - Array
+     * @returns - Array [data]
      */
     static async findOne(identifier) {
         const { toPlaceholder, toObjectValue } = mapObjectKey(identifier);
@@ -20,12 +20,12 @@ class Program {
 
     /**
      * @param - Object {data}
-     * @returns - Array
+     * @returns - Array [data]
      */
-    static async create(data) {
+    static async insert(data, table) {
         const { toPlaceholder, toObjectValue } = mapObjectKey(data);
 
-        const sql = `INSERT INTO programs SET ${toPlaceholder}`;
+        const sql = `INSERT INTO ${table} SET ${toPlaceholder}`;
 
         const response = await setConnection(sql, toObjectValue);
 
@@ -33,9 +33,9 @@ class Program {
     }
 
     /**
-     * @paramOne - Object {identifier}
-     * @paramTwo - Object {dataToUpdate}
-     * @returns - Array
+     * @param - Object {identifier}
+     * @param - Object {dataToUpdate}
+     * @returns - Array [data]
      */
     static async updateOne(identifier, data) {
         const mappedIdentifier = mapObjectKey(identifier);

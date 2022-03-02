@@ -13,7 +13,6 @@ class ProtectRoute {
         const { authorization } = req.headers;
         let accessToken = null;
 
-        console.log('authorization', authorization);
         if (authorization && authorization.startsWith('Bearer')) {
             accessToken = authorization.split(' ')[1];
         }

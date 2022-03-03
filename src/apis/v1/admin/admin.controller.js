@@ -11,9 +11,7 @@ class AdminController {
             isMobileAlreadyExist,
             isEmailAlreadyExist,
             create,
-        } = await adminService.createPersonnel({
-            ...user,
-        });
+        } = await adminService.createPersonnel(user);
 
         if (isAlreadyRegistered) {
             return sendResponse({

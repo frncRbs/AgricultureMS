@@ -63,6 +63,18 @@ const validateFieldsFor = {
         mobileNumber: fields.mobileNumber,
         emailAddress: fields.emailAddress,
     }),
+    createFarmer: joi.object({
+        firstname: fields.firstname,
+        lastname: fields.lastname,
+        gender: fields.gender,
+        role: fields.role,
+        isActivated: fields.isActivated,
+        middlename: fields.middlename,
+        username: fields.username,
+        password: fields.password,
+        mobileNumber: fields.mobileNumber,
+        emailAddress: fields.emailAddress,
+    }),
 };
 
 module.exports = validateFieldsFor;

@@ -1,5 +1,5 @@
 {
-    "discord.enabled": true,
+    "discord.enabled": false,
     "editor.formatOnSave": true,
     "files.associations": {
         "*.js": "javascriptreact"

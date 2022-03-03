@@ -19,16 +19,19 @@ const Register = () => {
     const { isActivated, isAuthenticated } = useSelector((state) => state.auth);
 
     /* Register Function  */
-    const onSubmit = async (data) =>
+    const onSubmit = async (data) => {
         await dispatch(registerUser(data)).unwrap();
+    };
+
+    console.log({ isAuthenticated, isActivated });
 
     /* Redirect to login page  */
     const handleRedirectToLogin = (e) => navigateTo('/login');
 
-    /* Immediately redirect user to account-status page if their account is not activated by an admin */
+    // /* Immediately redirect user to account-status page if their account is not activated by an admin */
     useEffect(() => {
-        if (isAuthenticated && !isActivated) navigateTo(`/account-status`);
-    }, [isActivated, navigateTo, dispatch, isAuthenticated]);
+        if (isAuthenticated) navigateTo(`/account-status`);
+    }, [isAuthenticated, navigateTo]);
 
     return (
         <>

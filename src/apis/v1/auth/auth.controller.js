@@ -66,7 +66,7 @@ class AuthController {
         const { insertId } = await create();
 
         /* Perform relational mapping */
-        await Relation.insert({ userId: insertId, roleId: 1 }, 'UsersRoles');
+        // await Relation.insert({ userId: insertId, roleId: 1 }, 'UsersRoles');
 
         return sendResponse({
             res,

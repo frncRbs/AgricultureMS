@@ -71,16 +71,32 @@ class AdminService {
 
     /* Create New Service*/
     async createNewService(service) {
-        let response = await Program.create(service);
+        const table = 'services';
+        const response = await Program.insert(service, table);
 
-        return {};
+        return response;
     }
 
-    /* List of Farmers and Personnles  */
-    async listUsers(role) {
-        let users = await User.findAll(role);
+    /* Create New Crop*/
+    async createNewCrop(service) {
+        const table = 'crops';
+        let response = await Program.insert(service, table);
 
-        return { users };
+        return response;
+    }
+
+    /* List of Farmers and Personnels  */
+    async listUsers(role) {
+        const response = await User.findAll(role);
+
+        return response;
+    }
+
+    /* Notification */
+    async getNotifications(req, res) {
+        const response = await Notification.findAll();
+
+        return response;
     }
 }
 

@@ -9,7 +9,7 @@ class Relation {
     static async insert(data, table) {
         const { toPlaceholder, toObjectValue } = mapObjectKey(data);
 
-        const sql = `INSERT INTO ${table} SET ${toPlaceholder}`;
+        const sql = `INSERT IGNORE INTO ${table} SET ${toPlaceholder}`;
 
         const response = await setConnection(sql, toObjectValue);
 

@@ -142,26 +142,58 @@ class AdminController {
     async createNewService(req, res) {
         const { service } = req.body;
 
-        const {} = await adminService.createNewService(service);
+        const response = await adminService.createNewService(service);
+
+        return sendResponse({
+            res,
+            statusCode: 201,
+            isSuccess: true,
+            message: `Service successfully created!`,
+            data: response,
+        });
     }
 
     async createNewCrop(req, res) {
-        
+        const { crop } = req.body;
+
+        const response = await adminService.createNewCrop(crop);
+
+        return sendResponse({
+            res,
+            statusCode: 201,
+            isSuccess: true,
+            message: `Service successfully created!`,
+            data: response,
+        });
     }
 
-    /* List of Farmers and Personnles  */
+    /* List of Farmers and Personnels  */
     async listUsers(req, res) {
         const { role } = req.body;
 
-        const { users } = await adminService.listUsers({ role });
+        const response = await adminService.listUsers({ role });
 
-        console.log({ role, users });
+        console.log({ role, response });
 
         return sendResponse({
             res,
             statusCode: 201,
             isSuccess: true,
             message: `Farmers Successfullly Retrieved!`,
+            data: response,
+        });
+    }
+
+    /* Notification */
+    async getNotifications(req, res) {
+        const response = await adminService.getNotifications();
+
+        return sendResponse({
+            res,
+            statusCode: 201,
+            isSuccess: true,
+            message: `Farmers Successfullly Retrieved!`,
+            data: response,
         });
     }
 }

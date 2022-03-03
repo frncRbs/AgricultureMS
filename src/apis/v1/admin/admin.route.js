@@ -9,6 +9,9 @@ const {
     deactiveAccount,
     activateAccount,
     changeRole,
+    createNewService,
+    createNewCrop,
+    listUsers,
 } = require('admin.controller');
 
 const rolePath = '/admin';
@@ -40,6 +43,24 @@ const adminRoutes = [
         path: `${rolePath}/change_role`,
         method: POST,
         controller: changeRole,
+        localMiddlewares: [authenticate, verifyAdmin],
+    },
+    {
+        path: `${rolePath}/new_service`,
+        method: POST,
+        controller: createNewService,
+        localMiddlewares: [authenticate, verifyAdmin],
+    },
+    {
+        path: `${rolePath}/new_crop`,
+        method: POST,
+        controller: createNewCrop,
+        localMiddlewares: [authenticate, verifyAdmin],
+    },
+    {
+        path: `${rolePath}/list_user`,
+        method: POST,
+        controller: listUsers,
         localMiddlewares: [authenticate, verifyAdmin],
     },
 ];

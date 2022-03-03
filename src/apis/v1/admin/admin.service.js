@@ -73,7 +73,6 @@ class AdminService {
     async createNewService(service) {
         let response = await Program.create(service);
 
-        return {};
     }
 
     /* List of Farmers and Personnles  */

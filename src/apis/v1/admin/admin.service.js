@@ -74,7 +74,10 @@ class AdminService {
         const table = 'services';
         const response = await Program.insert(service, table);
 
+<<<<<<< HEAD
         return response;
+=======
+>>>>>>> 5b03664c168a6cad21061af79c73ff7c61c2cc17
     }
 
     /* Create New Crop*/

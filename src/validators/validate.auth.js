@@ -31,7 +31,27 @@ const fields = {
         .trim()
         .required(),
 
-    birthYear: joi.number().integer().min(1900).max(2013),
+    street: joi.string().required(),
+
+    subdivision: joi.string().required(),
+
+    sitio: joi.string().required(),
+
+    birthDate: joi.string().required(),
+
+    placeOfBirth: joi.string().required(),
+
+    barangay: joi.string().required(),
+
+    municipality: joi.string().required(),
+
+    zipCode: joi.string().length(4).trim().required(),
+
+    position: joi.string().required(),
+
+    civilStatus: joi.string().required(),
+
+    religion: joi.string().required(),
 };
 
 const validateFieldsFor = {
@@ -46,9 +66,24 @@ const validateFieldsFor = {
     }),
 
     register: joi.object({
+        firstname: fields.firstname,
+        middlename: fields.middlename,
+        lastname: fields.lastname,
+        gender: fields.gender,
         username: fields.username,
         password: fields.password,
         mobileNumber: fields.mobileNumber,
+        position: fields.position,
+        birthDate: fields.birthDate,
+        placeOfBirth: fields.placeOfBirth,
+        municipality: fields.municipality,
+        street: fields.street,
+        subdivision: fields.subdivision,
+        barangay: fields.barangay,
+        sitio: fields.sitio,
+        zipCode: fields.zipCode,
+        civilStatus: fields.civilStatus,
+        religion: fields.religion,
     }),
 
     createPersonnel: joi.object({
@@ -61,7 +96,6 @@ const validateFieldsFor = {
         username: fields.username,
         password: fields.password,
         mobileNumber: fields.mobileNumber,
-        emailAddress: fields.emailAddress,
     }),
     createFarmer: joi.object({
         firstname: fields.firstname,
@@ -73,7 +107,6 @@ const validateFieldsFor = {
         username: fields.username,
         password: fields.password,
         mobileNumber: fields.mobileNumber,
-        emailAddress: fields.emailAddress,
     }),
 };
 

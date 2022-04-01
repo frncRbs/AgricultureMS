@@ -15,21 +15,21 @@ Dashboard
 Register Coordinator
 <img src="./screenshots/dashboard-register.JPG" dlt="dashboard-register"/>
 
+## Technologies
 
-## Technologies 
-
--   NodeJS - Server
--   ExpressJS - Nodejs framework
--   MySQL - Database
--   ReactJS - Frontend
--   Redux - State Management
--   Eslint - Linter
--   Webpack(pending) - Bundler
--   Babel - Loader and Compiler/Transpiler
--   Jest - Testing Framework
+- NodeJS - Server
+- ExpressJS - Nodejs framework
+- MySQL - Database
+- ReactJS - Frontend
+- Redux - State Management
+- Eslint - Linter
+- Webpack(pending) - Bundler
+- Babel - Loader and Compiler/Transpiler
+- Jest - Testing Framework
 
 <!-- MEMBERS-LIST  -->
-## MEMBERS 
+
+## MEMBERS
 
 <table align="center">
   <tr>

@@ -10,7 +10,7 @@ tr {
 tr,
 th,
 td {
-    border: 0.8 var(--gray-1) solid;
+    border: 0.6 var(--gray-1) solid;
 }
 
 th,
@@ -18,13 +18,29 @@ td {
     padding: 1em;
 }
 
+td.custom__td {
+    padding: 0 1em 0 1em;
+}
+
+table {
+    th:last-child {
+        width: 5em;
+    }
+    th:first-child {
+        width: 3em;
+    }
+}
+
 .col {
+    float: right;
     display: flex;
-    align-items: flex-end;
-    justify-content: flex-end;
-    gap: 1em;
+    align-items: center;
     button {
-        height: 3em;
-        width: 7em;
+        width: 8em;
+        transform: scale(0.8);
+        &:last-child {
+            color: var(--white-0);
+            background-color: var(--red-1);
+        }
     }
 }

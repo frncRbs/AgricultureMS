@@ -11,3 +11,5 @@ export { default as Preloader } from './sharedComponents/Preloader';
 export { default as Carousel } from './sharedComponents/Carousel';
 export { default as Heading } from './sharedComponents/Heading';
 export { default as FilterGroup } from './sharedComponents/FilterGroup';
+export { default as AvatarDropdown } from './sharedComponents/AvatarDropdown';
+export { default as Modal } from './sharedComponents/Modal';

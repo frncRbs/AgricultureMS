@@ -1,15 +1,14 @@
 const { sign, verify } = require('jsonwebtoken');
 
-const { setConnection, sendResponse } = require('server');
+const { sendResponse } = require('server');
 const { ACCESS_TOKEN } = require('constants/envs');
-const { QUERY_SELECT_USER } = require('constants/queries');
-const { setAccessTokenCookie } = require('util.cookies');
-const createQueryStatement = require('helpers/queries/query.statements');
+const { User } = require('models/model.user');
+const { Role } = require('models/model.role');
 
 class Token {
     static async signAccessToken({ res, user, message }) {
-        const accessToken = sign({ ...user }, ACCESS_TOKEN, {
-            expiresIn: '7d' /* 7 Days */,
+        const accessToken = sign({...user }, ACCESS_TOKEN, {
+            expiresIn: '7d' /* 7 Days */ ,
         });
 
         return sendResponse({
@@ -36,13 +35,11 @@ class Token {
 
         const { username, role } = verify(accessToken, ACCESS_TOKEN);
 
-        const queryOneUser = createQueryStatement(QUERY_SELECT_USER);
-        const [RowDataPacket] = await setConnection(queryOneUser, [username]);
+        const _user = await User.findOne({ username });
 
-        if (
-            username !== RowDataPacket.username &&
-            role !== RowDataPacket.role
-        ) {
+        const _roleFromDb = await Role.findOne({ id: _user[0].roleId });
+
+        if (username !== _user[0].username && role !== _roleFromDb[0].role) {
             return { isVerified: false, username: null };
         }
 

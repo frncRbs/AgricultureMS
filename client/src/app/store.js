@@ -16,16 +16,19 @@ import storage from 'redux-persist/lib/storage';
 import authReducer from '../features/Auth/authSlice';
 import toastReducer from '../features/Toast/toastSlice';
 import adminReducer from '../features/Dashboard/Admin/adminSlice';
+import appReducer from '../features/App/appSlice';
+import modalReducer from '../features/Modal/modalSlice';
 
 /**
- * PERSIST: https://redux-toolkit.js.org/usage/usage-guide
- *
+ * @REDUX PERSIST: https://redux-toolkit.js.org/usage/usage-guide
  */
 
 const rootReducer = combineReducers({
+    app: appReducer,
     auth: authReducer,
     toast: toastReducer,
     admin: adminReducer,
+    modal: modalReducer,
 });
 
 const persistConfig = {

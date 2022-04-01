@@ -36,6 +36,12 @@ option {
     border-radius: var(--radius-1);
     border: 0.5px var(--white-1) solid;
     color: var(--gray-1);
+    &::placeholder {
+        /* Chrome, Firefox, Opera, Safari 10.1+ */
+        color: var(--gray-3);
+        opacity: 1;
+        /* Firefox */
+    }
 }
 
 select {
@@ -55,6 +61,7 @@ hr {
 }
 
 img {
+    border-radius: var(--radius-1);
     width: 100%;
 }
 
@@ -80,4 +87,15 @@ label {
     font-style: normal;
     font-weight: normal;
     line-height: 30px;
+}
+
+.modal__content {
+    .heading {
+        text-align: center;
+        margin: 0.5em 0 1em 0;
+    }
+    .body {
+        display: grid;
+        grid-gap: 1em;
+    }
 }

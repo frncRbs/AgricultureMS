@@ -25,7 +25,7 @@ import roles from '../common/helpers/roles';
 
 /* Route Component */
 import PrivateRoute from './PrivateRoute';
-import PublicRoute from './PublicRoute';
+import { clearFields } from '../features/App/appSlice';
 
 const history = createBrowserHistory();
 
@@ -89,19 +89,19 @@ const RootRoutes = () => {
         if (isSuccess) {
             toast.success(message);
         }
-    }, [isSuccess, dispatch, message]);
+    }, [isSuccess, message]);
 
     /* Error Notification*/
     useEffect(() => {
         if (isError) {
             toast.error(message);
         }
-    }, [isSuccess, isError, message, dispatch]);
+    }, [isError, message]);
 
     /* Clear Notification */
     useEffect(() => {
         dispatch(clearToast());
-    }, [isSuccess, isError, message, dispatch]);
+    }, [message, dispatch]);
 
     return (
         <Router>

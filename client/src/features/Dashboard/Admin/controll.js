@@ -1,6 +1,13 @@
 import { Icon } from '../../../common';
 import { greet } from '../../../common/helpers/greet';
-import { Dashboard, RegisterCoordinator, SetProgram } from './Screens';
+import {
+    Dashboard,
+    RegisterCoordinator,
+    SetProgram,
+    ManageAccounts,
+    SearchUser,
+    SiteContent,
+} from './Screens';
 
 const controll = {
     type: 'dashboard',
@@ -30,21 +37,21 @@ const controll = {
         },
         {
             path: 'search-farmer',
-            display: <h1>search</h1>,
+            display: <SearchUser />,
             name: 'Search Farmer',
             heading: greet('Admin'),
             Icon: <Icon name="person_search" color="var(--white-2)" />,
         },
         {
             path: 'manage-accounts',
-            display: <h1>manage</h1>,
+            display: <ManageAccounts />,
             name: 'Manage Accounts',
             heading: greet('Admin'),
             Icon: <Icon name="manage_account" color="var(--white-2)" />,
         },
         {
             path: 'site-content',
-            display: <h1>Site Contents</h1>,
+            display: <SiteContent />,
             name: 'Site Contents',
             heading: greet('Admin'),
             Icon: <Icon name="manage_account" color="var(--white-2)" />,

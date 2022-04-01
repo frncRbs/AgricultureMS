@@ -1,11 +1,11 @@
 const { sendResponse, setConnection } = require('server');
-
+const FarmerService = require('farmer.service');
 class FarmerController {
     /* Request Service */
     async requestService(req, res) {
         const { service } = req.body;
 
-        const response = await farmerService.requestService(service);
+        const response = await FarmerService.requestService(service);
 
         console.log({ response });
 
@@ -21,7 +21,7 @@ class FarmerController {
     async requestCrop(req, res) {
         const { crop } = req.body;
 
-        const response = await farmerService.requestCrop(crop);
+        const response = await FarmerService.requestCrop(crop);
 
         console.log({ response });
 
@@ -35,7 +35,7 @@ class FarmerController {
 
     /* Request History */
     async viewRequestHistory(req, res) {
-        const response = await farmerService.viewRequestHistory();
+        const response = await FarmerService.viewRequestHistory();
 
         console.log({ response });
 

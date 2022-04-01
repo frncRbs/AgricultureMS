@@ -1,9 +1,9 @@
-const User = require('model.user');
-const Program = require('model.program');
+const { User } = require('model.user');
+const { Program } = require('model.program');
 
 class FarmerService {
     /* Request Service */
-    async requestService(service) {
+    static async requestService(service) {
         const table = 'services';
 
         const response = await Program.insert({ service }, table);
@@ -12,7 +12,7 @@ class FarmerService {
     }
 
     /* Request Props */
-    async requestCrop(crop) {
+    static async requestCrop(crop) {
         const table = 'crops';
         const response = await Program.insert({ crop }, table);
 
@@ -20,7 +20,7 @@ class FarmerService {
     }
 
     /* Request History */
-    async viewRequestHistory(req, res) {
+    static async viewRequestHistory(req, res) {
         const table = 'RequestHistory';
 
         const response = await Program.findAll(table);
@@ -29,6 +29,4 @@ class FarmerService {
     }
 }
 
-const farmerService = new FarmerService();
-
-module.exports = farmerService;
+module.exports = FarmerService;

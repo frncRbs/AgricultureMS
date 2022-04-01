@@ -12,17 +12,12 @@ const instanceConfig = (instance) => {
 instanceConfig(publicApi); /* public HTTP request */
 instanceConfig(privateApi); /* private HTTP request */
 
-/**
- * @accessToken = This accesToken was sent to body from server. And after user's login and we save this accessToken in a cookie, that is why we are getting it here and passing it in config headers.
- *
- * */
-
-privateApi.interceptors.response.use(
+privateApi.interceptors.request.use(
     (config) => {
         const accessToken = getCookie('accessToken');
 
         config.headers = {
-            Authorization: `Bearer ${accessToken}`,
+            authorization: `Bearer ${accessToken}`,
             'Content-Type': 'application/json',
         };
 
@@ -41,7 +36,7 @@ privateApi.interceptors.response.use(
 //             const accessToken = await refreshAccessToken();
 
 //             privateApi.defaults.headers.common[
-//                 'Authorization'
+//                 'authorization'
 //             ] = `Bearer ${accessToken}`;
 
 //             return privateApi(originalRequest);

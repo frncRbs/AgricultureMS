@@ -2,7 +2,12 @@
     height: 100vh;
     display: grid;
     grid-template-columns: 16em auto;
+    position: relative;
     // sidebar
+    .sidebar {
+        position: fixed;
+        height: 100vh;
+    }
     // body
     &__body {
         display: grid;
@@ -12,13 +17,12 @@
             position: fixed;
             width: 100%;
             top: 0;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
             padding: 1em 18em 1em 2em;
             background-color: var(--white-0);
-            /* offset-x | offset-y | blur-radius | spread-radius | color */
             box-shadow: 0 0 30px var(--gray-3);
+            display: grid;
+            align-items: center;
+            grid-template-columns: repeat(2, 1fr);
             .left {
                 line-height: 30px;
                 h1 {
@@ -27,17 +31,12 @@
                 }
             }
             .right {
-                display: flex;
-                align-items: center;
-                gap: 2em;
-                .user {
-                    img {
-                        width: 3em;
-                        height: 3em;
-                        border-radius: 100%;
-                    }
-                }
-                .user,
+                right: 18em;
+                position: absolute;
+                justify-self: flex-end;
+                display: grid;
+                grid-template-columns: repeat(2, auto);
+                justify-content: flex-end;
                 .icon {
                     display: flex;
                     align-items: center;

@@ -4,19 +4,18 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 /* Local Module Imports */
-import { Sidebar, Icon, Toast, Button } from '../../common';
+import { Sidebar, Icon, Toast, Button, AvatarDropdown } from '../../common';
 import { greet } from '../../common/helpers/greet';
 import admin from './Admin/controll';
 import farmer from './Farmer/controll';
 import personnel from './Personnel/controll';
 import { logout } from '../Auth/authSlice';
-import { capitalizeFirstLetter } from '../../common/helpers/letters';
 import roles from '../../common/helpers/roles';
 
 /* CSS Import */
 import './_index.scss';
 /* Sidebar */
-const RenderUIBasedOnRoleSidebar = ({ role, getPageDetails }) => {
+const SidebarComponent = ({ role, getPageDetails }) => {
     switch (role) {
         case roles['admin']:
             return <Sidebar {...admin} getPageDetails={getPageDetails} />;
@@ -51,16 +50,33 @@ const Dashboard = () => {
     };
 
     /* Dummy Data */
-    const data = {
-        img: 'https://graphicsfamily.com/wp-content/uploads/edd/2021/07/Agriculture-Logo-Design-Free-PSD-Download-scaled.jpg',
-    };
+    const image =
+        'https://graphicsfamily.com/wp-content/uploads/edd/2021/07/Agriculture-Logo-Design-Free-PSD-Download-scaled.jpg';
 
+    const menu = {
+        username,
+        role,
+        image,
+        menu: [
+            {
+                name: 'Edward',
+                action: () => {},
+            },
+            {
+                name: 'Settings',
+                action: () => {},
+            },
+            {
+                name: 'Logout',
+                action: handleLogout,
+            },
+        ],
+    };
     return (
         <div className="dashboard">
-            <RenderUIBasedOnRoleSidebar
-                getPageDetails={getPageDetails}
-                role={role}
-            />
+            <div className="dashboard__sidebar">
+                <SidebarComponent getPageDetails={getPageDetails} role={role} />
+            </div>
             <div className="dashboard__body">
                 <div className="dashboard__body__sub-navbar">
                     <div className="left">
@@ -70,20 +86,10 @@ const Dashboard = () => {
                     </div>
                     <div className="right">
                         <div className="icon">
-                            <Button
-                                onClick={handleLogout}
-                                type="secondary"
-                                name="< Logout"
-                            />
                             <Icon name="search" />
                             <Icon name="notification" />
                         </div>
-                        <div className="user">
-                            <p>{`(${capitalizeFirstLetter(
-                                role
-                            )})-${capitalizeFirstLetter(username)}`}</p>
-                            <img src={data.img} alt="avatar" />
-                        </div>
+                        <AvatarDropdown {...menu} />
                     </div>
                 </div>
                 <div className="dashboard__sub-routes">

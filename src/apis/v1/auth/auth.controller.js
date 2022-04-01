@@ -4,17 +4,18 @@ const {
     verifyAccessToken,
 } = require('helpers/utils/util.token');
 const authService = require('auth.service');
-const Relation = require('model.relation');
 
 class AuthController {
     /* Login */
     async login(req, res) {
         const { username, password } = req.body;
 
-        const { result, isPasswordMatch, userFromDatabase } =
-            await authService.login({ username, password });
+        const { isPasswordMatch, userFromDatabase } = await authService.login({
+            username,
+            password,
+        });
 
-        if (!result.length) {
+        if (!userFromDatabase.length) {
             return sendResponse({
                 res,
                 statusCode: 401,
@@ -35,9 +36,11 @@ class AuthController {
         return signAccessToken({
             res,
             user: {
-                username: userFromDatabase.username,
-                role: userFromDatabase.role,
-                isActivated: userFromDatabase.isActivated,
+                username: userFromDatabase[0].username,
+                firstname: userFromDatabase[0].firstname,
+                role: userFromDatabase[0].role,
+                id: userFromDatabase[0].id,
+                isActivated: userFromDatabase[0].isActivated,
             },
             message: 'You are now authenticated!',
         });
@@ -45,16 +48,12 @@ class AuthController {
 
     /* Register */
     async register(req, res) {
-        const { username, password, repeatPassword, mobileNumber } = req.body;
+        const newUser = req.body;
 
-        const { create, isAlreadyRegistered } = await authService.register({
-            username,
-            password,
-            repeatPassword,
-            mobileNumber,
-        });
+        const { create, isAlreadyRegistered, isMobileAlreadyExist } =
+        await authService.register(newUser);
 
-        if (isAlreadyRegistered) {
+        if (isAlreadyRegistered.length) {
             return sendResponse({
                 res,
                 statusCode: 401,
@@ -63,17 +62,23 @@ class AuthController {
             });
         }
 
-        const { insertId } = await create();
+        if (isMobileAlreadyExist.length) {
+            return sendResponse({
+                res,
+                statusCode: 401,
+                isSuccess: false,
+                message: 'Mobile number is already exist.',
+            });
+        }
 
-        /* Perform relational mapping */
-        // await Relation.insert({ userId: insertId, roleId: 1 }, 'UsersRoles');
+        await create();
 
         return sendResponse({
             res,
             statusCode: 201,
             isSuccess: true,
-            message: 'Account Successfully Created!\n',
-            user: 1,
+            message: 'Account Successfully Created!',
+            user: { firstname: newUser.firstname },
         });
     }
 
@@ -98,7 +103,6 @@ class AuthController {
             accessToken = authorization.split(' ')[1];
         }
 
-        console.log({ accessToken });
         return sendResponse({
             res,
             statusCode: 200,
@@ -114,11 +118,11 @@ class AuthController {
         const { currentPassword, newPassword } = req.body;
 
         const { isVerified, updatePassword, isPasswordMatch } =
-            await authService.changePassword({
-                accessToken,
-                currentPassword,
-                newPassword,
-            });
+        await authService.changePassword({
+            accessToken,
+            currentPassword,
+            newPassword,
+        });
 
         if (!isVerified) {
             return sendResponse({

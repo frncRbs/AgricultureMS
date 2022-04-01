@@ -35,7 +35,6 @@ class ProtectRoute {
         const { authorization } = req.headers;
         let accessToken = null;
 
-        console.log({ authorization });
         if (authorization && authorization.startsWith('Bearer')) {
             accessToken = authorization.split(' ')[1];
         }
@@ -54,7 +53,7 @@ class ProtectRoute {
         next();
     }
 
-    async verifyPersonnel() {
+    async verifyPersonnel(req, res, next) {
         const { authorization } = req.headers;
         let accessToken = null;
 
@@ -76,7 +75,7 @@ class ProtectRoute {
         next();
     }
 
-    async verifyFarmer() {
+    async verifyFarmer(req, res, next) {
         const { authorization } = req.headers;
         let accessToken = null;
 

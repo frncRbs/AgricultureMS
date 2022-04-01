@@ -29,8 +29,6 @@ class AuthService {
         const accessToken = getCookie('accessToken');
         const decodedToken = decodeToken(accessToken);
 
-        console.log({ decodedToken, accessToken, state });
-
         if (
             accessToken &&
             decodedToken['username'] === state['username'] &&

@@ -9,9 +9,11 @@ const {
     deactiveAccount,
     activateAccount,
     changeRole,
-    createNewService,
-    createNewCrop,
+    createNewProgram,
+    listPrograms,
     listUsers,
+    updateProgram,
+    deleteProgram,
 } = require('admin.controller');
 
 const rolePath = '/admin';
@@ -24,7 +26,7 @@ const adminRoutes = [
         localMiddlewares: [
             authenticate,
             verifyAdmin,
-            validateFieldsFor('createPersonnel'),
+            // validateFieldsFor('createPersonnel'),
         ],
     },
     {
@@ -46,19 +48,31 @@ const adminRoutes = [
         localMiddlewares: [authenticate, verifyAdmin],
     },
     {
-        path: `${rolePath}/new_service`,
+        path: `${rolePath}/new_program`,
         method: POST,
-        controller: createNewService,
+        controller: createNewProgram,
         localMiddlewares: [authenticate, verifyAdmin],
     },
     {
-        path: `${rolePath}/new_crop`,
+        path: `${rolePath}/list_programs`,
         method: POST,
-        controller: createNewCrop,
+        controller: listPrograms,
         localMiddlewares: [authenticate, verifyAdmin],
     },
     {
-        path: `${rolePath}/list_user`,
+        path: `${rolePath}/delete_program`,
+        method: POST,
+        controller: deleteProgram,
+        localMiddlewares: [authenticate, verifyAdmin],
+    },
+    {
+        path: `${rolePath}/update_program`,
+        method: POST,
+        controller: updateProgram,
+        localMiddlewares: [authenticate, verifyAdmin],
+    },
+    {
+        path: `${rolePath}/list_users`,
         method: POST,
         controller: listUsers,
         localMiddlewares: [authenticate, verifyAdmin],

@@ -9,10 +9,12 @@ import {
 } from 'react-super-responsive-table';
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import Button from '../Button';
+import Preloader from '../Preloader';
 
 import './_index.scss';
 const Table = ({ type, table }) => {
     let TableContent = null;
+    const none = 'N/A';
 
     switch (type) {
         case 'admin_dashboard':
@@ -28,14 +30,94 @@ const Table = ({ type, table }) => {
                     <Tbody>
                         {table.data.map((obj, i) => (
                             <Tr key={i}>
-                                <Td>{obj.reference}</Td>
-                                <Td>{obj.lastName}</Td>
-                                <Td>{obj.firstName}</Td>
-                                <Td>{obj.middleName}</Td>
-                                <Td>{obj.gender}</Td>
-                                <Td>{obj.program}</Td>
-                                <Td>{obj.dateActive}</Td>
-                                <Td>{obj.numberOfFerms}</Td>
+                                <Td>{obj.id}</Td>
+                                <Td>{obj.lastname || none}</Td>
+                                <Td>{obj.firstname || none}</Td>
+                                <Td>{obj.middlename || none}</Td>
+                                <Td>{obj.gender || none}</Td>
+                                <Td>{obj.position || none}</Td>
+                                <Td>{obj.dateActive || none}</Td>
+                                <Td>{obj.numberOfFerms || none}</Td>
+                            </Tr>
+                        ))}
+                    </Tbody>
+                </>
+            );
+            break;
+        case 'manage_accounts':
+            TableContent = (
+                <>
+                    <Thead>
+                        <Tr>
+                            {table.heading.map((th, i) => (
+                                <Th key={i}>{th}</Th>
+                            ))}
+                        </Tr>
+                    </Thead>
+                    <Tbody>
+                        {table.data.map((obj, i) => (
+                            <Tr key={i}>
+                                <Td>{obj.id}</Td>
+                                <Td>{obj.image || none}</Td>
+                                <Td>{obj.lastname || none}</Td>
+                                <Td>{obj.firstname || none}</Td>
+                                <Td>{obj.middlename || none}</Td>
+                                <Td>{obj.dateActive || none}</Td>
+                                <Td>{obj.birthDate || none}</Td>
+                                <Td>{obj.role || none}</Td>
+                                <Td className="col custom__td">
+                                    <Button
+                                        name="Edit"
+                                        style="primary"
+                                        onClick={() =>
+                                            table.actions.edit(
+                                                obj.id,
+                                                obj.optionalType,
+                                                obj.name
+                                            )
+                                        }
+                                    />
+                                    <Button
+                                        onClick={() =>
+                                            table.actions.delete(
+                                                obj.id,
+                                                obj.optionalType
+                                            )
+                                        }
+                                        name="Delete"
+                                        style="secondary"
+                                    />
+                                </Td>
+                            </Tr>
+                        ))}
+                    </Tbody>
+                </>
+            );
+            break;
+        case 'search_user':
+            TableContent = (
+                <>
+                    <Thead>
+                        <Tr>
+                            {table.heading.map((th, i) => (
+                                <Th key={i}>{th}</Th>
+                            ))}
+                        </Tr>
+                    </Thead>
+                    <Tbody>
+                        {table.data.map((obj, i) => (
+                            <Tr key={i}>
+                                <Td>{obj.id}</Td>
+                                <Td>
+                                    {`${obj.lastname} ${obj.firstname} ${obj.middlename}` ||
+                                        none}
+                                </Td>
+                                <Td>{obj.gender || none}</Td>
+                                <Td>{obj.birthDate || none}</Td>
+                                <Td>{obj.commodity || none}</Td>
+                                <Td>{obj.size || none}</Td>
+                                <Td>{obj.barangay || none}</Td>
+                                <Td>{obj.mobileNumber || none}</Td>
                             </Tr>
                         ))}
                     </Tbody>
@@ -53,18 +135,43 @@ const Table = ({ type, table }) => {
                         </Tr>
                     </Thead>
                     <Tbody>
-                        {table.data.map((obj, i) => (
-                            <Tr key={i}>
-                                <Td>{obj.id}</Td>
-                                <Td>{obj.services || obj.services}</Td>
-                                <Td className="col">
-                                    <p>Edit</p>
-                                    <p>Delete</p>
-                                    {/* <Button name="Edit" style="primary" />
-                                    <Button name="Delete" style="secondary" /> */}
-                                </Td>
+                        {table.data.length ? (
+                            table.data.map((obj, i) => (
+                                <Tr key={i}>
+                                    <Td>{obj.id}</Td>
+                                    <Td>{obj.name}</Td>
+                                    <Td className="col custom__td">
+                                        <Button
+                                            name="Edit"
+                                            style="primary"
+                                            onClick={() =>
+                                                table.actions.edit(
+                                                    obj.id,
+                                                    obj.optionalType,
+                                                    obj.name
+                                                )
+                                            }
+                                        />
+                                        <Button
+                                            onClick={() =>
+                                                table.actions.delete(
+                                                    obj.id,
+                                                    obj.optionalType
+                                                )
+                                            }
+                                            name="Delete"
+                                            style="secondary"
+                                        />
+                                    </Td>
+                                </Tr>
+                            ))
+                        ) : (
+                            <Tr>
+                                <Td> No data found</Td>
+                                <Td> No data found</Td>
+                                <Td className="col">No data found</Td>
                             </Tr>
-                        ))}
+                        )}
                     </Tbody>
                 </>
             );

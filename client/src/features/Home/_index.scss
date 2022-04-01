@@ -1,40 +1,158 @@
-.home {
-    height: 100vh;
+main {
     display: grid;
-    place-items: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    &__content {
+    grid-gap: 2em;
+    .__divider-g {
+        width: 100%;
+        height: 0.2em;
+        background: var(--green-1);
+    }
+    .home {
+        height: 100vh;
         display: grid;
         place-items: center;
-        text-align: center;
-        color: var(--white-1);
-        .heading {
-            display: grid;
-            line-height: 30px;
-            h1,
-            p {
-                color: var(--white-1);
-            }
-            h1 {
-                font-size: 6.5rem;
-            }
-            p {
-                font-size: 1.7rem;
-            }
+        background-repeat: no-repeat;
+        background-size: cover;
+        p {
+            color: var(--black-3);
         }
-        .footer {
-            padding: 2em;
-            display: flex;
-            width: 30em;
-            gap: 1em;
-            align-items: center;
-            .secondary.login {
-                background-color: var(--white-1);
-                &:hover {
-                    background-color: var(--white-2);
+        &__content {
+            display: grid;
+            place-items: center;
+            text-align: center;
+            color: var(--white-1);
+            .heading {
+                display: grid;
+                line-height: 30px;
+                h1,
+                p {
+                    color: var(--white-1);
+                }
+                h1 {
+                    font-size: 6.5rem;
+                }
+                p {
+                    font-size: 1.7rem;
                 }
             }
+            .button {
+                padding: 2em;
+                display: flex;
+                width: 30em;
+                gap: 1em;
+                align-items: center;
+                .secondary.login {
+                    background-color: var(--white-1);
+                    &:hover {
+                        background-color: var(--white-2);
+                    }
+                }
+            }
+        }
+    }
+    .hero__section {
+        height: 100vh;
+        display: grid;
+        place-items: center;
+        grid-gap: 1.5em;
+        padding: 2em 0 2em 0;
+        .hero__heading {
+            text-align: center;
+            display: grid;
+            max-width: 40em;
+            h1 {
+                font-size: var(--font-size-3);
+                font-weight: var(--weight-1);
+            }
+            h2 {
+                padding: 1em 0 1em 0;
+            }
+        }
+        .hero__body {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 1em;
+            .program {
+                text-align: center;
+                display: grid;
+                grid-gap: 1em;
+                padding: 2em 1em 2em 1em;
+                background-color: var(--white-1);
+                border-radius: var(--radius-1);
+                img {
+                    max-width: 25em;
+                }
+            }
+        }
+    }
+    .story__section {
+        height: 70vh;
+        background-color: var(--white-1);
+        display: grid;
+        place-items: center;
+        .story__heading {
+            text-align: center;
+            max-width: 45em;
+            h1 {
+                font-size: var(--font-size-3);
+                font-weight: var(--weight-1);
+            }
+        }
+        .story__body {
+            display: grid;
+            grid-template-columns: repeat(2, auto);
+            grid-gap: 1em;
+            .text {
+                padding: 1em;
+                text-align: center;
+                max-width: 40em;
+                p {
+                    line-height: 20px;
+                }
+            }
+        }
+    }
+    .personnel__section {
+        height: auto;
+        display: grid;
+        place-items: center;
+        grid-gap: 1.5em;
+        padding-bottom: 2em;
+        .personnel__heading {
+            text-align: center;
+            display: grid;
+            max-width: 40em;
+            margin-bottom: 1em;
+            h1 {
+                font-size: var(--font-size-3);
+                font-weight: var(--weight-1);
+            }
+        }
+        .personnel__body {
+            display: grid;
+            grid-template-columns: repeat(4, auto);
+            grid-gap: 3em;
+            .personnel {
+                text-align: center;
+                display: grid;
+                grid-gap: 1em;
+                text-align: center;
+                place-items: center;
+                img {
+                    padding-bottom: 1em;
+                    width: 12em;
+                    height: 12em;
+                    border-radius: 50em;
+                }
+            }
+        }
+    }
+    .footer {
+        background: var(--green-1);
+        height: 10vh;
+        display: grid;
+        place-items: center;
+        p {
+            color: var(--white-1);
         }
     }
 }

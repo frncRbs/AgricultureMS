@@ -41,13 +41,9 @@ export const login = createAsyncThunk(
  * */
 export const register = createAsyncThunk(
     'auth/register',
-    async ({ username, mobileNumber, password }, thunkAPI) => {
+    async (user, thunkAPI) => {
         try {
-            const response = await authService.register({
-                username,
-                mobileNumber,
-                password,
-            });
+            const response = await authService.register(user);
 
             if (response['isSuccess']) {
                 notifyUser({
@@ -71,6 +67,7 @@ export const logout = createAsyncThunk('auth/logout', () =>
 export const authSelector = (state) => state.auth;
 
 const initialState = {
+    firstname: '',
     username: '',
     mobileNumber: '',
     isLoading: false,
@@ -78,6 +75,7 @@ const initialState = {
     isActivated: false,
     isAuthenticated: false,
     role: null,
+    id: '',
 };
 
 const { reducer, actions } = createSlice({
@@ -118,7 +116,7 @@ const { reducer, actions } = createSlice({
         [login.fulfilled]: (state, { payload }) => {
             if (payload['isError']) {
                 return Object.assign(state, {
-                    username: null,
+                    username: '',
                     mobileNumber: undefined,
                     isLoading: false,
                     isSuccess: false,
@@ -128,10 +126,12 @@ const { reducer, actions } = createSlice({
 
             return Object.assign(state, {
                 username: payload.user.username,
+                firstname: payload.user.firstname,
                 isLoading: false,
                 isSuccess: true,
                 isActivated: payload.user.isActivated,
                 role: payload.user.role,
+                id: payload.user.id,
                 isAuthenticated: true,
             });
         },
@@ -140,6 +140,39 @@ const { reducer, actions } = createSlice({
             Object.assign(state, {
                 username: '',
                 mobileNumber: undefined,
+                isLoading: false,
+                isSuccess: false,
+                isAuthenticated: false,
+            });
+        },
+
+        /* Register */
+        [register.pending]: (state) => {
+            Object.assign(state, {
+                isLoading: true,
+                isSuccess: false,
+                isAuthenticated: false,
+            });
+        },
+        [register.fulfilled]: (state, { payload }) => {
+            if (payload['isError']) {
+                return Object.assign(state, {
+                    isLoading: false,
+                    isSuccess: false,
+                    isAuthenticated: false,
+                });
+            }
+
+            Object.assign(state, {
+                firstname: payload.user.firstname,
+                isActivated: false,
+                isLoading: false,
+                isSuccess: true,
+                isAuthenticated: true,
+            });
+        },
+        [register.rejected]: (state) => {
+            Object.assign(state, {
                 isLoading: false,
                 isSuccess: false,
                 isAuthenticated: false,
@@ -165,40 +198,6 @@ const { reducer, actions } = createSlice({
         [logout.rejected]: (state) => {
             Object.assign(state, {
                 isLoading: false,
-                isAuthenticated: false,
-            });
-        },
-
-        /* Register */
-        [register.pending]: (state) => {
-            Object.assign(state, {
-                isLoading: true,
-                isSuccess: false,
-                isAuthenticated: false,
-            });
-        },
-        [register.fulfilled]: (state, { payload }) => {
-            if (payload['isError']) {
-                return Object.assign(state, {
-                    isLoading: false,
-                    isSuccess: false,
-                    isAuthenticated: false,
-                });
-            }
-
-            Object.assign(state, {
-                username: payload.user.username,
-                isActivated: payload.user.isActivated,
-                role: payload.user.role,
-                isLoading: false,
-                isSuccess: true,
-                isAuthenticated: true,
-            });
-        },
-        [register.rejected]: (state, { payload }) => {
-            Object.assign(state, {
-                isLoading: false,
-                isSuccess: false,
                 isAuthenticated: false,
             });
         },

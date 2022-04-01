@@ -6,7 +6,7 @@ const validate = (routeFields) => {
         console.log('Validator is not exits');
     }
 
-    return async(req, res, next) => {
+    return async (req, res, next) => {
         try {
             const validated = await validateFieldsFor[
                 routeFields

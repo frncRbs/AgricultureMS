@@ -31,9 +31,11 @@
             }
             .heading {
                 text-align: center;
+                margin-bottom: 1em;
+                line-height: 0.1em;
                 h1 {
+                    line-height: 1em;
                     font-size: 3rem;
-                    line-height: 1.2em;
                     @include breakpoint(mobile) {
                         font-size: 2.3rem;
                     }

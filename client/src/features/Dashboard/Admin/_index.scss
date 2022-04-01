@@ -6,8 +6,6 @@
 
 .screen__dashboard {
     height: auto;
-    display: grid;
-    grid-gap: 2em;
     &-records {
         display: flex;
         gap: 1em;
@@ -23,7 +21,6 @@
 }
 
 .register_coordinator {
-    padding-bottom: 2em;
     &--form {
         .content {
             display: grid;
@@ -55,8 +52,6 @@
 }
 
 .set__program {
-    display: grid;
-    grid-gap: 2em;
     .content {
         &--add-prop {
             width: 20em;
@@ -64,4 +59,14 @@
             grid-gap: 1em;
         }
     }
+}
+
+.manage__accounts,
+.search__user,
+.site__content,
+.set__program,
+.register_coordinator,
+.screen__dashboard {
+    display: grid;
+    grid-gap: 2em;
 }

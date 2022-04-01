@@ -48,16 +48,18 @@ const Login = () => {
                         </div>
                         <div className="body">
                             <Input
-                                placeholder="Username"
+                                placeholder="juandelacruz"
+                                label="Username"
                                 name="username"
                                 required
                                 register={register}
                             />
                             <Input
-                                placeholder="Password"
+                                placeholder="********"
+                                label="Password"
                                 name="password"
-                                type="password"
                                 required
+                                type="password"
                                 register={register}
                             />
                             <div className="message">

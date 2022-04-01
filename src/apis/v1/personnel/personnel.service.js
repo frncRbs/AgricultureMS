@@ -1,23 +1,35 @@
-const User = require('model.user');
-const Program = require('model.program');
+const { User } = require('model.user');
 const { hashPassword } = require('helpers/utils/util.password');
+const { FARMER_ROLE } = require('constants/envs');
 
 class PersonnelService {
     /* Create Farmer */
     async createFarmerAccount(user) {
-        const { username, mobileNumber, emailAddress, password } = user;
+        const { username, mobileNumber, password } = user;
 
         const isAlreadyRegistered = await User.findOne({ username });
-        const isMobileAlreadyExist = await User.findOne({ mobileNumber });
-        const isEmailAlreadyExist = await User.findOne({ emailAddress });
 
-        const newUser = { ...user, password: hashPassword(password) };
+        const isMobileAlreadyExist = await User.findOne({ mobileNumber });
+
+        const newUser = {
+            ...user,
+            role: FARMER_ROLE,
+            password: hashPassword(password),
+        };
 
         return {
-            isAlreadyRegistered: isAlreadyRegistered.length,
-            isMobileAlreadyExist: isMobileAlreadyExist.length,
-            isEmailAlreadyExist: isEmailAlreadyExist.length,
-            create: async () => await User.create(newUser),
+            isAlreadyRegistered,
+            isMobileAlreadyExist,
+            create: async () => {
+                /* Create new user */
+                const { insertId } = await User.create(newUser);
+
+                /* Supply and save new user id to role id as a primary key */
+                await Role.create({
+                    id: insertId,
+                    role: FARMER_ROLE,
+                });
+            },
         };
     }
 

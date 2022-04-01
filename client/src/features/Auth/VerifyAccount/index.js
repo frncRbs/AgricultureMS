@@ -11,10 +11,12 @@ import { logout } from '../authSlice';
 /* Local CSS imports */
 import './_index.scss';
 
-const VerifiAccount = () => {
+const VerifyAccount = () => {
     const dispatch = useDispatch();
     const navigateTo = useNavigate();
-    const { isAuthenticated, isActivated } = useSelector((state) => state.auth);
+    const { isAuthenticated, isActivated, isSuccess, firstname } = useSelector(
+        (state) => state.auth
+    );
 
     const handleLogout = () => {
         dispatch(logout());
@@ -22,11 +24,11 @@ const VerifiAccount = () => {
     };
 
     useEffect(() => {
-        if (!isAuthenticated) {
+        if (!isSuccess) {
             dispatch(logout());
             navigateTo('/');
         }
-    }, [dispatch, isAuthenticated, navigateTo]);
+    }, [dispatch, isSuccess, navigateTo]);
 
     useEffect(() => {
         if (isAuthenticated && isActivated) {
@@ -37,14 +39,12 @@ const VerifiAccount = () => {
     const message = {
         newUser: {
             title: 'Welcome Agriculturist!',
-            message:
-                'Hi Juan, Thank you for signing up! Your account is not yet activated. We will be sending you an update to your mobile number once your account is reviewed and verified by the Administrator.',
+            message: `Hi ${firstname}, Thank you for signing up! Your account is not yet activated. We will be sending you an update to your mobile number once your account is reviewed and verified by the Administrator.`,
         },
 
         oldUser: {
             title: 'Account Status: Pending',
-            message:
-                'Hi Juan, your account is currently not activated. Please come back until your account is reviewed and verified by the Administrator.',
+            message: `Hi ${firstname}, your account is currently not activated. Please come back until your account is reviewed and verified by the Administrator.`,
         },
     };
 
@@ -54,8 +54,16 @@ const VerifiAccount = () => {
             <div className="verify__account">
                 <div className="content">
                     <div className="heading">
-                        <h1>{message.newUser.title}</h1>
-                        <p>{message.newUser.message}</p>
+                        <h1>
+                            {!isAuthenticated
+                                ? message.newUser.title
+                                : message.oldUser.title}
+                        </h1>
+                        <p>
+                            {!isAuthenticated
+                                ? message.newUser.message
+                                : message.oldUser.message}
+                        </p>
                     </div>
                     <div className="body">
                         <Button
@@ -71,4 +79,4 @@ const VerifiAccount = () => {
     );
 };
 
-export default VerifiAccount;
+export default VerifyAccount;

@@ -13,7 +13,6 @@ export const greet = (name) => {
     if (second < 10) {
         second = '0' + second;
     }
-
     if (hour < 12) {
         message = `Good Morning, ${capitalizeFirstLetter(name)}!`;
     } else if (hour < 18) {

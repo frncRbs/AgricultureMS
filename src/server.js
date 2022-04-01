@@ -7,14 +7,14 @@ class Server {
     _app = express();
 
     run() {
-        this._app.listen(configs.app.port, async () => {
+        this._app.listen(configs.app.port, async() => {
             console.log(
                 `\n\n✅ http://${configs.app.host}:${configs.app.port}`
             );
             await this.setConnection();
         });
 
-        // process.setMaxListeners(0);
+        process.setMaxListeners(0);
         process.on('SIGTERM', () => {
             process.close(() => {
                 console.log(`Server Terminated.`);
@@ -35,29 +35,18 @@ class Server {
     }
 
     setConnection(query, data) {
-        const pool = mysql.createPool(configs.db.mysql);
+        const db = mysql.createPool(configs.db.mysql);
 
         return new Promise((resolve, reject) => {
-            return pool.getConnection((err, sql) => {
+            return db.getConnection((err, sql) => {
                 if (err) {
-                    console.log(`❌ Error Connecting to Database `);
                     reject(err);
                 }
 
-                console.log(`✔ Database Connected Successfully!`);
-
                 if (query) {
-                    /**
-                     * @param "query" string,
-                     * @param [data] array,
-                     * @param function
-                     */
-                    sql.query(query, [...data], (err, results) => {
-                        if (err) {
-                            reject(err);
-                        }
-                        console.log(`THIS IS FROM DATABASE: `, results);
-                        resolve(results);
+                    sql.query(query, data && [...data], (err, results) => {
+                        if (err) reject(err);
+                        else resolve(results);
 
                         sql.release();
                     });
@@ -66,21 +55,34 @@ class Server {
         });
     }
 
-    sendResponse({ res, statusCode, isSuccess, message, data, user = {} }) {
+    sendResponse({
+        res,
+        statusCode,
+        isSuccess,
+        message,
+        data = {} || [],
+        user = {},
+    }) {
         /* Error Response */
         if (!isSuccess) new ApiError(message, statusCode);
 
         /* Success Response */
-        Object.keys(user).length
-            ? res.status(statusCode).json({
-                  isSuccess,
-                  message,
-                  user, // {username, role, isActivated, accessToken}
-              })
-            : res.status(statusCode).json({
-                  isSuccess,
-                  message,
-              });
+        Object.keys(user).length ?
+            res.status(statusCode).json({
+                isSuccess,
+                message,
+                user, // {username, role, isActivated, accessToken}
+            }) :
+            Object.keys(data).length ?
+            res.status(statusCode).json({
+                isSuccess,
+                message,
+                data, // {}
+            }) :
+            res.status(statusCode).json({
+                isSuccess,
+                message,
+            });
     }
 }
 

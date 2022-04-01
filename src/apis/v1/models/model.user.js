@@ -1,22 +1,45 @@
 const { setConnection } = require('server');
 const mapObjectKey = require('util.map.object-key');
 
-class User {
+/**
+ * This is just a custom schema of an object.
+ * This schema supports by the function in helpes/utils/util.filter-truthy-object
+ */
+
+const UserSchema = {
+    firstname: '',
+    middlename: '',
+    lastname: '',
+    mobileNumber: '',
+    username: '',
+    password: '',
+    isActivated: '',
+    birthDate: '',
+    placeOfBirth: '',
+
+    /* Based on role */
+    provincial: '',
+    barangay: '',
+    municipality: '',
+};
+
+class UserMethods {
     constructor() {}
 
     /**
      * @param - Object {identifier}
-     * @returns - Array
+     * @returns - Object
      */
     static async findOne(identifier) {
         const { toPlaceholder, toObjectValue } = mapObjectKey(identifier);
 
         const sql = `SELECT * FROM users WHERE ${toPlaceholder} LIMIT 1`;
+
         console.log({ sql });
 
-        const response = await setConnection(sql, toObjectValue);
+        const user = await setConnection(sql, toObjectValue);
 
-        return response;
+        return user;
     }
 
     /**
@@ -26,7 +49,7 @@ class User {
     static async findAll(identifier) {
         const { toPlaceholder, toObjectValue } = mapObjectKey(identifier);
 
-        const sql = `SELECT * FROM Users JOIN UsersRoles JOIN Roles WHERE Users.id = UsersRoles.userId AND UsersRoles.roleId = ?`;
+        const sql = `SELECT * FROM Users WHERE ${toPlaceholder} `;
 
         console.log({ sql });
 
@@ -37,17 +60,33 @@ class User {
 
     /**
      * @param - Object {data}
-     * @returns - Array
+     * @returns - Object
      */
     static async create(data) {
         const { toPlaceholder, toObjectValue } = mapObjectKey(data);
 
         const sql = `INSERT IGNORE INTO users SET ${toPlaceholder}`;
-        console.log({ sql });
 
         const response = await setConnection(sql, toObjectValue);
 
-        return response;
+        console.log({ createdUser: response });
+        /**
+         * @param - String table
+         * @param - Object {data}
+         * @returns - Object
+         */
+        const user = {
+            insertId: response.insertId,
+            joinTable: async(table, data) => {
+                const { toPlaceholder, toObjectValue } = mapObjectKey(data);
+
+                const sql = `INSERT IGNORE INTO ${table} SET ${toPlaceholder}`;
+
+                await setConnection(sql, toObjectValue);
+            },
+        };
+
+        return user;
     }
 
     /**
@@ -84,6 +123,20 @@ class User {
 
         return response;
     }
+
+    /**
+     * @returns - Object
+     */
+
+    static async deleteAll() {
+        const sql = `DELETE FROM users`;
+
+        console.log({ sql });
+
+        const response = await setConnection(sql, null);
+
+        return response;
+    }
 }
 
-module.exports = User;
+module.exports = { UserSchema, User: UserMethods };

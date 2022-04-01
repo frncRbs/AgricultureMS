@@ -1,34 +1,82 @@
-const User = require('model.user');
+const { User } = require('model.user');
+const { Role } = require('model.role');
 const {
     comparePassword,
     hashPassword,
 } = require('helpers/utils/util.password');
 const { removeCookie } = require('helpers/utils/util.cookies');
+const { FARMER_ROLE } = require('constants/envs');
 const { verifyAccessToken } = require('helpers/utils/util.token');
+const { filterTruthyObject } = require('helpers/utils/util.truthy-object');
+const { getDate } = require('/helpers/utils/util.date');
 
 class AuthService {
     /* Login Service */
     async login({ username, password }) {
-        const result = await User.findOne({ username });
+        const userFromDatabase = await User.findOne({ username });
 
         const isPasswordMatch = await comparePassword(username, password);
 
-        const userFromDatabase = result[0]; /* Access user */
-
-        return { result, isPasswordMatch, userFromDatabase };
+        return { isPasswordMatch, userFromDatabase };
     }
 
     /* Register Service */
-    async register({ username, password, repeatPassword, mobileNumber }) {
-        const encryptedPassword = await hashPassword(password);
+    async register(user) {
+        const { username, password, mobileNumber } = user;
 
         const isAlreadyRegistered = await User.findOne({ username });
 
-        const newUser = { username, password: encryptedPassword, mobileNumber };
+        const isMobileAlreadyExist = await User.findOne({ mobileNumber });
+
+        const newUser = filterTruthyObject({}, {
+            ...user,
+            role: FARMER_ROLE, // optional, as the default values for this in mysql database was 'farmer'
+            password: hashPassword(password),
+            createdAt: getDate(),
+
+            /* Ignored from users table */
+            position: null,
+            confirmPassword: null,
+            civilStatus: null,
+            religion: null,
+            street: null,
+            subdivision: null,
+            sitio: null,
+            barangay: null,
+            municipality: null,
+            zipCode: null,
+        });
 
         return {
-            isAlreadyRegistered: isAlreadyRegistered.length,
-            create: async () => await User.create(newUser),
+            isAlreadyRegistered,
+            isMobileAlreadyExist,
+            create: async() => {
+                /* Create new user */
+                const _createdUser = await User.create(newUser);
+
+                await _createdUser.joinTable('Farmers', {
+                    id: _createdUser.insertId,
+                    position: user.position,
+                    civilStatus: user.civilStatus,
+                    religion: user.religion,
+                });
+
+                await _createdUser.joinTable('FarmersAddresses', {
+                    farmerId: _createdUser.insertId,
+                    street: user.street,
+                    subdivision: user.subdivision,
+                    sitio: user.sitio,
+                    barangay: user.barangay,
+                    municipality: user.municipality,
+                    zipCode: user.zipCode,
+                });
+
+                /* Supply and save new user id to role id as a primary key */
+                await Role.create({
+                    id: _createdUser.insertId,
+                    role: FARMER_ROLE,
+                });
+            },
         };
     }
 
@@ -50,11 +98,8 @@ class AuthService {
         return {
             isVerified,
             isPasswordMatch,
-            updatePassword: async () =>
-                await User.updateOne(
-                    { username },
-                    { password: hashPassword(newPassword) }
-                ),
+            updatePassword: async() =>
+                await User.updateOne({ username }, { password: hashPassword(newPassword) }),
         };
     }
 }

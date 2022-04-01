@@ -19,4 +19,4 @@ class Relation {
     }
 }
 
-module.exports = Relation;
+module.exports = { Relation };

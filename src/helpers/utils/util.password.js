@@ -1,5 +1,5 @@
 const { genSaltSync, hashSync, compareSync } = require('bcryptjs');
-const User = require('model.user');
+const { User } = require('models/model.user');
 
 const hashPassword = (password) => {
     const salt = genSaltSync(10);
@@ -9,17 +9,13 @@ const hashPassword = (password) => {
     return hashPassword;
 };
 
-const comparePassword = async (username, userPassword) => {
-    let isPasswordVerified = false;
+const comparePassword = async(username, userPassword) => {
+    const user = await User.findOne({ username });
 
-    const response = await User.findOne({ username });
-
-    if (!response.length) isPasswordVerified = false;
+    if (!user.length) return false;
 
     /* It would return true or false */
-    isPasswordVerified = compareSync(userPassword, response[0].password);
-
-    return isPasswordVerified;
+    return compareSync(userPassword, user[0].password);
 };
 
 module.exports = { hashPassword, comparePassword };

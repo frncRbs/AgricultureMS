@@ -6,7 +6,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 
 /* Local Module Imports */
 import { store, persistor } from './app/store';
-import Routes from './routes/Routes';
+import Routes from './routes/routes';
 
 /* Local custom CSS Import */
 import './styles/index.scss';
@@ -19,7 +19,7 @@ const App = () => {
         <ReduxProvider store={store}>
             <PersistGate persistor={persistor}>
                 <Routes />
-            </PersistGate>
+            </PersistGate>{' '}
         </ReduxProvider>
     );
 };

@@ -14,10 +14,8 @@ const RegisterCoordinator = () => {
     const dispatch = useDispatch();
 
     /* Submit Data  */
-    const onSubmit = async (data) => {
+    const onSubmit = async (data) =>
         await dispatch(createPersonnelAccount(data)).unwrap();
-        console.log({ FORMDATA: data });
-    };
 
     const programs = [
         {
@@ -27,22 +25,33 @@ const RegisterCoordinator = () => {
         },
         {
             name: 'High Value Crops (HVC) ',
-            value: 'Value 2',
+            value: 'High Value Crops',
         },
         {
             name: 'Rice Program (Rice) ',
-            value: 'Value 2',
+            value: 'Rice Program',
         },
         {
             name: 'Corn Program (Corn) ',
-            value: 'Value 2',
-        },
-        {
-            name: 'Show All ',
-            value: 'Value 2',
+            value: 'Corn Program',
         },
     ];
 
+    const genders = [
+        {
+            name: 'Choose Gender',
+            value: '',
+            disabled: true,
+        },
+        {
+            name: 'Male',
+            value: 'male',
+        },
+        {
+            name: 'Female',
+            value: 'female',
+        },
+    ];
     return (
         <div className="register_coordinator">
             <div className="register_coordinator--form">
@@ -56,7 +65,7 @@ const RegisterCoordinator = () => {
                             type="select"
                             data={programs}
                             placeholder="Register For"
-                            name="program"
+                            name="position"
                             register={register}
                             required
                         />
@@ -64,31 +73,23 @@ const RegisterCoordinator = () => {
                             <div className="col">
                                 <Input
                                     placeholder="First Name"
-                                    name="firstName"
+                                    name="firstname"
                                     register={register}
                                     required
                                 />
                                 <Input
                                     placeholder="Middle Name"
-                                    name="middleName"
+                                    name="middlename"
                                     register={register}
                                 />
                                 <Input
                                     placeholder="Last Name"
-                                    name="lastName"
+                                    name="lastname"
                                     register={register}
                                     required
                                 />
                             </div>
                             <div className="col">
-                                <Input
-                                    type="select"
-                                    data={programs}
-                                    placeholder="Position"
-                                    name="program"
-                                    register={register}
-                                    required
-                                />
                                 <Input
                                     type="date"
                                     placeholder="Birth Date"
@@ -99,7 +100,16 @@ const RegisterCoordinator = () => {
                                     type="text"
                                     data={programs}
                                     placeholder="Place of Birth"
-                                    name="placeOfbirth"
+                                    name="placeOfBirth"
+                                    register={register}
+                                />
+                                <Input
+                                    type="tel"
+                                    placeholder="9123456789"
+                                    label="Mobile Number"
+                                    name="mobileNumber"
+                                    maxLength="10"
+                                    required
                                     register={register}
                                 />
                             </div>
@@ -108,12 +118,8 @@ const RegisterCoordinator = () => {
                                     placeholder="Gender"
                                     name="gender"
                                     register={register}
-                                />
-                                <Input
-                                    placeholder="Contact Number"
-                                    name="contactNumber"
-                                    register={register}
-                                    required
+                                    type="select"
+                                    data={genders}
                                 />
                             </div>
                         </div>
@@ -124,22 +130,26 @@ const RegisterCoordinator = () => {
                         <div className="body">
                             <div className="col">
                                 <Input
-                                    placeholder="Provincial Address"
-                                    name="provincialAddress"
+                                    type="text"
+                                    placeholder="Ayala Zamboanga"
+                                    label="Provincial Address"
+                                    name="provincial"
                                     register={register}
                                     required
                                 />
                                 <Input
-                                    placeholder="Barangay Address"
-                                    name="barangayAddress"
                                     type="text"
+                                    placeholder="Ayala Zone 44"
+                                    label="Barangay Address"
+                                    name="barangay"
                                     register={register}
                                     required
                                 />
                                 <Input
-                                    placeholder="Municipality Address"
-                                    name="municipalityAddress"
                                     type="text"
+                                    placeholder="Ayala Municipality"
+                                    label="Municipality Address"
+                                    name="municipality"
                                     register={register}
                                     required
                                 />
@@ -152,24 +162,27 @@ const RegisterCoordinator = () => {
                         <div className="body">
                             <div className="col">
                                 <Input
-                                    placeholder="Username"
+                                    label="Username"
+                                    placeholder="juandelacruz"
                                     name="username"
-                                    register={register}
                                     required
+                                    register={register}
                                 />
                                 <Input
-                                    placeholder="Password"
+                                    label="Password"
+                                    placeholder="********"
                                     name="password"
+                                    required
                                     type="password"
                                     register={register}
-                                    required
                                 />
                                 <Input
-                                    placeholder="Confirm Password"
                                     type="password"
-                                    name="confirmPassword"
-                                    register={register}
+                                    label="Confirm Password"
+                                    name="password"
+                                    placeholder="********"
                                     required
+                                    register={register}
                                 />
                             </div>
                         </div>

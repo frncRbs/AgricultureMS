@@ -1,6 +1,7 @@
 /* eslint-disable react/style-prop-object */
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
 import {
     Input,
     Button,
@@ -8,11 +9,23 @@ import {
     FilterGroup,
     Heading,
 } from '../../../../../common';
+import { listUsers } from '../../adminSlice';
 
 import '../../_index.scss';
 
 const Dashboard = () => {
     const { register } = useForm();
+    const dispatch = useDispatch();
+    const { users } = useSelector((state) => state.admin);
+
+    /* Submit Data  */
+    const listUsersBasedOnRole = async (role) => {
+        await dispatch(listUsers(role)).unwrap();
+    };
+
+    useEffect(() => {
+        listUsersBasedOnRole({ role: 'personnel' });
+    }, []);
 
     const programs = [
         {
@@ -63,37 +76,16 @@ const Dashboard = () => {
 
     const table = {
         heading: [
-            'Reference No',
+            'ID',
             'Last Name',
             'First Name',
             'Middle Name',
             'Gender',
             'Program',
             'Date Active',
-            'Number of Ferms',
+            'No. of Farmers',
         ],
-        data: [
-            {
-                reference: '33',
-                lastName: 'Pedro',
-                firstName: 'Juan',
-                gender: 'Male',
-                middleName: 'Luu',
-                program: 'Crops',
-                dateActive: '01/11/11',
-                numberOfFerms: '2',
-            },
-            {
-                reference: '3232',
-                lastName: 'Jeth',
-                gender: 'Male',
-                firstName: 'Lee',
-                middleName: 'Lee',
-                program: 'Crops',
-                dateActive: '02/22/21',
-                numberOfFerms: '2',
-            },
-        ],
+        data: users || [],
     };
 
     return (

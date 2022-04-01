@@ -4,14 +4,12 @@ const personnelService = require('personnel.service');
 class PersonnelController {
     /* Create Farmer */
     async createFarmerAccount(req, res) {
-        const { user } = req.body;
+        const user = req.body;
 
-        const {
-            isAlreadyRegistered,
-            isMobileAlreadyExist,
-            isEmailAlreadyExist,
-            create,
-        } = await personnelService.createFarmerAccount(user);
+        const { isAlreadyRegistered, isMobileAlreadyExist, create } =
+            await adminService.createPersonnel({
+                ...user,
+            });
 
         if (isAlreadyRegistered) {
             return sendResponse({
@@ -28,15 +26,6 @@ class PersonnelController {
                 statusCode: 400,
                 isSuccess: false,
                 message: 'This mobile number is already taken.',
-            });
-        }
-
-        if (isEmailAlreadyExist) {
-            return sendResponse({
-                res,
-                statusCode: 400,
-                isSuccess: false,
-                message: 'This email is already taken.',
             });
         }
 

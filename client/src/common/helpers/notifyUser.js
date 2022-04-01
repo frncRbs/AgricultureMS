@@ -8,6 +8,7 @@ export const parseErrorMessage = (err) => {
 
     return errorMessage;
 };
+
 const notifyUser = ({ message, thunkAPI, isError, isSuccess }) => {
     if (isError && !isSuccess) {
         thunkAPI.dispatch(
@@ -16,7 +17,7 @@ const notifyUser = ({ message, thunkAPI, isError, isSuccess }) => {
 
         return thunkAPI.fulfillWithValue({
             messsage: parseErrorMessage(message),
-            isError: true,
+            isError,
         });
     }
 

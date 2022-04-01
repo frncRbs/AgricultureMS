@@ -1,0 +1,36 @@
+.avatar__dropdown {
+    position: relative;
+    display: grid;
+    place-items: center;
+    padding: 1em;
+    .avatar__head {
+        display: flex;
+        align-items: center;
+        gap: 1em;
+        img {
+            cursor: pointer;
+            width: 3em;
+            height: 3em;
+            border-radius: 100%;
+        }
+    }
+    .avatar__body {
+        justify-self: end;
+        padding: 1em;
+        background-color: var(--white-0);
+        border-radius: var(--radius-1);
+        position: absolute;
+        top: 5em;
+        width: auto;
+        transition: var(--transition);
+        li {
+            padding: 0.8em 0.6em 0.8em 0.6em;
+            border-bottom: 1px var(--white-2) solid;
+            &:hover {
+                cursor: pointer;
+                transition: var(--transition);
+                background: var(--white-1);
+            }
+        }
+    }
+}

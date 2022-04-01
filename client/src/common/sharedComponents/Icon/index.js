@@ -16,7 +16,7 @@ import {
 /**
  * @link https://react-icons.github.io/react-icons/icons?name=md
  * */
-const Icon = ({ name, size, color, extraStyles }) => {
+const Icon = ({ name, size, color, extraStyles, onClick }) => {
     let IconView = null;
 
     switch (name) {
@@ -26,6 +26,7 @@ const Icon = ({ name, size, color, extraStyles }) => {
                     style={{ fill: color, ...extraStyles }}
                     className="icon"
                     size={size || 24}
+                    onClick={onClick}
                 />
             );
             break;
@@ -35,6 +36,7 @@ const Icon = ({ name, size, color, extraStyles }) => {
                     style={{ fill: color }}
                     className="icon"
                     size={size || 24}
+                    onClick={onClick}
                 />
             );
             break;
@@ -44,6 +46,7 @@ const Icon = ({ name, size, color, extraStyles }) => {
                     style={{ fill: color }}
                     className="icon"
                     size={size || 24}
+                    onClick={onClick}
                 />
             );
             break;
@@ -53,6 +56,7 @@ const Icon = ({ name, size, color, extraStyles }) => {
                     style={{ fill: color }}
                     className="icon"
                     size={size || 24}
+                    onClick={onClick}
                 />
             );
             break;
@@ -62,6 +66,7 @@ const Icon = ({ name, size, color, extraStyles }) => {
                     style={{ fill: color }}
                     className="icon"
                     size={size || 24}
+                    onClick={onClick}
                 />
             );
             break;
@@ -71,6 +76,7 @@ const Icon = ({ name, size, color, extraStyles }) => {
                     style={{ fill: color }}
                     className="icon"
                     size={size || 24}
+                    onClick={onClick}
                 />
             );
             break;
@@ -80,6 +86,7 @@ const Icon = ({ name, size, color, extraStyles }) => {
                     style={{ fill: color }}
                     className="icon"
                     size={size || 24}
+                    onClick={onClick}
                 />
             );
             break;
@@ -89,6 +96,7 @@ const Icon = ({ name, size, color, extraStyles }) => {
                     style={{ fill: color }}
                     className="icon"
                     size={size || 24}
+                    onClick={onClick}
                 />
             );
             break;
@@ -98,6 +106,7 @@ const Icon = ({ name, size, color, extraStyles }) => {
                     style={{ fill: color }}
                     className="icon"
                     size={size || 24}
+                    onClick={onClick}
                 />
             );
             break;
@@ -107,6 +116,7 @@ const Icon = ({ name, size, color, extraStyles }) => {
                     style={{ fill: color }}
                     className="icon"
                     size={size || 24}
+                    onClick={onClick}
                 />
             );
             break;
@@ -116,6 +126,7 @@ const Icon = ({ name, size, color, extraStyles }) => {
                     style={{ fill: color }}
                     className="icon"
                     size={size || 24}
+                    onClick={onClick}
                 />
             );
             break;

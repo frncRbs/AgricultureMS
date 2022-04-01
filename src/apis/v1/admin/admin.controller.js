@@ -1,21 +1,22 @@
 const adminService = require('admin.service');
 const { sendResponse } = require('server');
+const { filterTruthyObject } = require('helpers/utils/util.truthy-object');
 
 class AdminController {
-    /* Create Personnel */
+    /**
+     * @func createPersonnelAccount
+     * @desc Controller for creating new personnel/coordinator
+     * @param {Object} req
+     * @param {Object} res
+     * @returns {Object}
+     */
     async createPersonnelAccount(req, res) {
         const user = req.body;
 
-        const {
-            isAlreadyRegistered,
-            isMobileAlreadyExist,
-            isEmailAlreadyExist,
-            create,
-        } = await adminService.createPersonnel({
-            ...user,
-        });
+        const { isAlreadyRegistered, isMobileAlreadyExist, create } =
+        await adminService.createPersonnelAccount(user);
 
-        if (isAlreadyRegistered) {
+        if (isAlreadyRegistered.length) {
             return sendResponse({
                 res,
                 statusCode: 400,
@@ -24,21 +25,12 @@ class AdminController {
             });
         }
 
-        if (isMobileAlreadyExist) {
+        if (isMobileAlreadyExist.length) {
             return sendResponse({
                 res,
                 statusCode: 400,
                 isSuccess: false,
                 message: 'This mobile number is already taken.',
-            });
-        }
-
-        if (isEmailAlreadyExist) {
-            return sendResponse({
-                res,
-                statusCode: 400,
-                isSuccess: false,
-                message: 'This email is already taken.',
             });
         }
 
@@ -53,7 +45,13 @@ class AdminController {
         });
     }
 
-    /* Deactivate Account */
+    /**
+     * @func deactiveAccount
+     * @desc Controller for deactivating users account
+     * @param {Object} req
+     * @param {Object} res
+     * @returns {Object}
+     */
     async deactiveAccount(req, res) {
         const { id } = req.body;
 
@@ -67,8 +65,6 @@ class AdminController {
         }
 
         const { save, isUserExist } = await adminService.deactiveAccount(id);
-
-        console.log({ id });
 
         if (!isUserExist) {
             return sendResponse({
@@ -89,7 +85,13 @@ class AdminController {
         });
     }
 
-    /* Activate Account */
+    /**
+     * @func activateAccount
+     * @desc Controller for activating users account
+     * @param {Object} req
+     * @param {Object} res
+     * @returns {Object}
+     */
     async activateAccount(req, res) {
         const { id } = req.body;
 
@@ -114,7 +116,13 @@ class AdminController {
         });
     }
 
-    /* Change Role */
+    /**
+     * @func changeRole
+     * @desc Controller for updating personnels/coordinators role
+     * @param {Object} req
+     * @param {Object} res
+     * @returns {Object}
+     */
     async changeRole(req, res) {
         const { id, role } = req.body;
 
@@ -139,41 +147,90 @@ class AdminController {
         });
     }
 
-    async createNewService(req, res) {
-        const { service } = req.body;
+    /**
+     * @func createNewProgram
+     * @desc Controller for creating new program (services, crops)
+     * @param {Object} req
+     * @param {Object} res
+     * @returns {Object}
+     */
+    async createNewProgram(req, res) {
+        const { type, id, program } = req.body;
 
-        const response = await adminService.createNewService(service);
+        const identifier = { table: type, adminId: id };
 
-        return sendResponse({
-            res,
-            statusCode: 201,
-            isSuccess: true,
-            message: `Service successfully created!`,
-            data: response,
-        });
-    }
-
-    async createNewCrop(req, res) {
-        const { crop } = req.body;
-
-        const response = await adminService.createNewCrop(crop);
+        const response = await adminService.createNewProgram(
+            identifier,
+            program
+        );
 
         return sendResponse({
             res,
             statusCode: 201,
             isSuccess: true,
-            message: `Service successfully created!`,
+            message: `New program successfully created!`,
             data: response,
         });
     }
 
-    /* List of Farmers and Personnels  */
+    /**
+     * @func updateProgram
+     * @desc Controller for updating single program(service, crop)
+     * @param {Object} req
+     * @param {Object} res
+     * @returns {Object}
+     */
+    async updateProgram(req, res) {
+        const { identifier, program } = req.body;
+
+        const response = await adminService.updateProgram({ table: identifier['type'], id: identifier['id'] }, {
+            name: program,
+        });
+
+        return sendResponse({
+            res,
+            statusCode: 200,
+            isSuccess: true,
+            message: `${program} successfully updated!`,
+            data: response,
+        });
+    }
+
+    /**
+     * @func deleteProgram
+     * @desc Controller for updating single program(service, crop)
+     * @param {Object} req
+     * @param {Object} res
+     * @returns {Object}
+     */
+    async deleteProgram(req, res) {
+        const identifier = req.body;
+
+        const response = await adminService.deleteProgram({
+            table: identifier['type'],
+            id: identifier['id'],
+        });
+
+        return sendResponse({
+            res,
+            statusCode: 200,
+            isSuccess: true,
+            message: `Deleted Successfully!`,
+            data: response,
+        });
+    }
+
+    /**
+     * @func listUsers
+     * @desc Controller for getting all users based on role
+     * @param {Object} req
+     * @param {Object} res
+     * @returns {Object}
+     */
     async listUsers(req, res) {
         const { role } = req.body;
 
         const response = await adminService.listUsers({ role });
-
-        console.log({ role, response });
 
         return sendResponse({
             res,
@@ -184,7 +241,34 @@ class AdminController {
         });
     }
 
-    /* Notification */
+    /**
+     * @func listPrograms
+     * @desc Controller for getting all programs
+     * @param {Object} req
+     * @param {Object} res
+     * @returns {Object}
+     */
+    async listPrograms(req, res) {
+        const { type } = req.body;
+
+        const response = await adminService.listPrograms(type);
+
+        return sendResponse({
+            res,
+            statusCode: 200,
+            isSuccess: true,
+            message: `Programs Successfullly Retrieved!`,
+            data: response,
+        });
+    }
+
+    /**
+     * @func getNotifications
+     * @desc Controller for getting notifications
+     * @param {Object} req
+     * @param {Object} res
+     * @returns {Object}
+     */
     async getNotifications(req, res) {
         const response = await adminService.getNotifications();
 

@@ -12,7 +12,7 @@
         "lint": "eslint .",
         "data:import": "node ./src/data/users.js",
         "data:destroy": "node ./src/data/users.js -d",
-        "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install && npm run build && npm build/_app.js && npm run build"
+        "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install && npm run build"
     },
     "engines": {
         "node": "17.3.0"

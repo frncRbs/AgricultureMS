@@ -20,22 +20,25 @@ class AdminService {
 
         const isMobileAlreadyExist = await User.findOne({ mobileNumber });
 
-        const newUser = filterTruthyObject({}, {
-            ...user,
-            role: PERSONNEL_ROLE,
-            password: hashPassword(password),
-            createdAt: getDate(),
-            position: null, // removes positon
-            confirmPassword: null,
-            provincial: null,
-            barangay: null,
-            municipality: null,
-        });
+        const newUser = filterTruthyObject(
+            {},
+            {
+                ...user,
+                role: PERSONNEL_ROLE,
+                password: hashPassword(password),
+                createdAt: getDate(),
+                position: null, // removes positon
+                confirmPassword: null,
+                provincial: null,
+                barangay: null,
+                municipality: null,
+            }
+        );
 
         return {
             isAlreadyRegistered,
             isMobileAlreadyExist,
-            create: async() => {
+            create: async () => {
                 /* Create new user */
                 const _createdUser = await User.create(newUser);
 
@@ -52,10 +55,10 @@ class AdminService {
                 });
 
                 /* Supply and save new user id to role id as a primary key */
-                await Role.create({
-                    id: _createdUser.insertId,
-                    role: PERSONNEL_ROLE,
-                });
+                // await Role.create({
+                //     id: _createdUser.insertId,
+                //     role: PERSONNEL_ROLE,
+                // });
             },
         };
     }
@@ -77,7 +80,7 @@ class AdminService {
 
         return {
             isUserExist,
-            save: async() => await User.updateOne({ id }, { isActivated: 0 }),
+            save: async () => await User.updateOne({ id }, { isActivated: 0 }),
         };
     }
 
@@ -98,7 +101,7 @@ class AdminService {
 
         return {
             isUserExist,
-            save: async() => await User.updateOne({ id }, { isActivated: 1 }),
+            save: async () => await User.updateOne({ id }, { isActivated: 1 }),
         };
     }
 
@@ -120,7 +123,7 @@ class AdminService {
 
         return {
             isUserExist,
-            save: async() => await User.updateOne({ id }, { role }),
+            save: async () => await User.updateOne({ id }, { role }),
         };
     }
 

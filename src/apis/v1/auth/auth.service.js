@@ -28,29 +28,32 @@ class AuthService {
 
         const isMobileAlreadyExist = await User.findOne({ mobileNumber });
 
-        const newUser = filterTruthyObject({}, {
-            ...user,
-            role: FARMER_ROLE, // optional, as the default values for this in mysql database was 'farmer'
-            password: hashPassword(password),
-            createdAt: getDate(),
+        const newUser = filterTruthyObject(
+            {},
+            {
+                ...user,
+                role: FARMER_ROLE, // optional, as the default values for this in mysql database was 'farmer'
+                password: hashPassword(password),
+                createdAt: getDate(),
 
-            /* Ignored from users table */
-            position: null,
-            confirmPassword: null,
-            civilStatus: null,
-            religion: null,
-            street: null,
-            subdivision: null,
-            sitio: null,
-            barangay: null,
-            municipality: null,
-            zipCode: null,
-        });
+                /* Ignored from users table */
+                position: null,
+                confirmPassword: null,
+                civilStatus: null,
+                religion: null,
+                street: null,
+                subdivision: null,
+                sitio: null,
+                barangay: null,
+                municipality: null,
+                zipCode: null,
+            }
+        );
 
         return {
             isAlreadyRegistered,
             isMobileAlreadyExist,
-            create: async() => {
+            create: async () => {
                 /* Create new user */
                 const _createdUser = await User.create(newUser);
 
@@ -72,10 +75,10 @@ class AuthService {
                 });
 
                 /* Supply and save new user id to role id as a primary key */
-                await Role.create({
-                    id: _createdUser.insertId,
-                    role: FARMER_ROLE,
-                });
+                // await Role.create({
+                //     id: _createdUser.insertId,
+                //     role: FARMER_ROLE,
+                // });
             },
         };
     }
@@ -98,8 +101,11 @@ class AuthService {
         return {
             isVerified,
             isPasswordMatch,
-            updatePassword: async() =>
-                await User.updateOne({ username }, { password: hashPassword(newPassword) }),
+            updatePassword: async () =>
+                await User.updateOne(
+                    { username },
+                    { password: hashPassword(newPassword) }
+                ),
         };
     }
 }

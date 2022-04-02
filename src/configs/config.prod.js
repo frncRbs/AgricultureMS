@@ -7,6 +7,8 @@ const {
     MYSQL_DATABASE,
     PORT,
     HOST,
+    NODE_ENV,
+    CLIENT_HOST,
 } = require('constants/envs');
 const cors = require('cors');
 const globalConfig = require('config.global');
@@ -18,7 +20,7 @@ module.exports = {
         globalMiddlewares: [
             ...globalConfig.middlewares,
             cors({
-                origin: 'http://localhost:3000',
+                origin: CLIENT_HOST,
             }),
             express.static(path.join(__dirname, '/client/build')),
         ],

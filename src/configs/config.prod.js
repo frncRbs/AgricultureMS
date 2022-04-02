@@ -22,7 +22,7 @@ module.exports = {
                 origin: CLIENT_HOST,
             }),
             ...globalConfig.middlewares,
-            express.static(path.join(__dirname, '/client/build')),
+            // express.static(path.join(__dirname, '/client/build')),
         ],
     },
     db: {

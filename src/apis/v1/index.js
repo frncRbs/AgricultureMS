@@ -22,7 +22,7 @@ const clientBuildRoute = {
 class Controller {
     router = Router();
 
-    routes = [...authRoutes, ...adminRoutes, clientBuildRoute];
+    routes = [...authRoutes, ...adminRoutes];
 
     path = NODE_ENV === 'production' ? '*' : '/';
 

@@ -7,7 +7,7 @@ class Server {
     _app = express();
 
     run() {
-        this._app.listen(configs.app.port, async() => {
+        this._app.listen(configs.app.port, async () => {
             console.log(
                 `\n\n✅ http://${configs.app.host}:${configs.app.port}`
             );
@@ -67,22 +67,22 @@ class Server {
         if (!isSuccess) new ApiError(message, statusCode);
 
         /* Success Response */
-        Object.keys(user).length ?
-            res.status(statusCode).json({
-                isSuccess,
-                message,
-                user, // {username, role, isActivated, accessToken}
-            }) :
-            Object.keys(data).length ?
-            res.status(statusCode).json({
-                isSuccess,
-                message,
-                data, // {}
-            }) :
-            res.status(statusCode).json({
-                isSuccess,
-                message,
-            });
+        Object.keys(user).length
+            ? res.status(statusCode).json({
+                  isSuccess,
+                  message,
+                  user, // {username, role, isActivated, accessToken}
+              })
+            : Object.keys(data).length
+            ? res.status(statusCode).json({
+                  isSuccess,
+                  message,
+                  data, // {}
+              })
+            : res.status(statusCode).json({
+                  isSuccess,
+                  message,
+              });
     }
 }
 

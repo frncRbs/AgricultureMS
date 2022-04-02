@@ -31,20 +31,20 @@ class Server {
     }
 
     setControllers(controllers) {
-        if (NODE_ENV === 'production') {
-            this._app.use(
-                express.static(path.join(__dirname, '/client/build'))
-            );
-            this._app.get('*', (req, res) => {
-                res.sendFile(
-                    path.resolve(__dirname, 'client', 'build', 'index.html')
-                );
-            });
-        } else {
-            controllers.forEach((controller) => {
-                this._app.use(controller.path, controller.setRoutes());
-            });
-        }
+        // if (NODE_ENV === 'production') {
+        //     this._app.use(
+        //         express.static(path.join(__dirname, '/client/build'))
+        //     );
+        //     this._app.get('*', (req, res) => {
+        //         res.sendFile(
+        //             path.resolve(__dirname, 'client', 'build', 'index.html')
+        //         );
+        //     });
+        // } else {
+        controllers.forEach((controller) => {
+            this._app.use(controller.path, controller.setRoutes());
+        });
+        // }
     }
 
     setConnection(query, data) {

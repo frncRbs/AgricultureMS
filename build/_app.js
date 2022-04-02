@@ -16,3 +16,6 @@ var _app = function _app() {
 };
 
 _app();
+/**
+ * @HowToRun Procfile = heroku local web
+ */

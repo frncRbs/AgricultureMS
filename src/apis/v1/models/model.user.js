@@ -49,7 +49,7 @@ class UserMethods {
     static async findAll(identifier) {
         const { toPlaceholder, toObjectValue } = mapObjectKey(identifier);
 
-        const sql = `SELECT * FROM Users WHERE ${toPlaceholder} `;
+        const sql = `SELECT * FROM users WHERE ${toPlaceholder} `;
 
         console.log({ sql });
 
@@ -77,7 +77,7 @@ class UserMethods {
          */
         const user = {
             insertId: response.insertId,
-            joinTable: async(table, data) => {
+            joinTable: async (table, data) => {
                 const { toPlaceholder, toObjectValue } = mapObjectKey(data);
 
                 const sql = `INSERT IGNORE INTO ${table} SET ${toPlaceholder}`;

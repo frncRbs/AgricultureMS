@@ -42,12 +42,12 @@ class AdminService {
                 /* Create new user */
                 const _createdUser = await User.create(newUser);
 
-                await _createdUser.joinTable('Personnels', {
+                await _createdUser.joinTable('personnels', {
                     id: _createdUser.insertId,
                     position: user.position,
                 });
 
-                await _createdUser.joinTable('PersonnelsAddresses', {
+                await _createdUser.joinTable('personnelsaddresses', {
                     personnelId: _createdUser.insertId,
                     provincial: user.provincial,
                     barangay: user.barangay,
@@ -139,7 +139,7 @@ class AdminService {
 
         const _createdProgram = await Program.insert(table, { name: program });
 
-        const _createdNewTable = await _createdProgram.joinTable('Programs', {
+        const _createdNewTable = await _createdProgram.joinTable('programs', {
             [`${table.slice(0, -1)}Id`]: _createdProgram.insertId,
         });
 

@@ -6,7 +6,7 @@
     "type": "commonjs",
     "scripts": {
         "start:dev": "nodemon --exec ./node_modules/.bin/babel-node ./src/_app.js",
-        "start:prod": "npm run build && npm build/_app.js && npm run build",
+        "start": "npm run build && npm build/_app.js && npm run build",
         "build": "babel src -d build",
         "client": "npm start --prefix client",
         "lint": "eslint .",

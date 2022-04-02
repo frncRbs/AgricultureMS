@@ -2,6 +2,8 @@ const mysql = require('mysql2');
 const configs = require('configs');
 const express = require('express');
 const ApiError = require('helpers/utils/util.api.error');
+const path = require('path');
+const { NODE_ENV } = require('constants/envs');
 
 class Server {
     _app = express();
@@ -29,9 +31,20 @@ class Server {
     }
 
     setControllers(controllers) {
-        controllers.forEach((controller) => {
-            this._app.use(controller.path, controller.setRoutes());
-        });
+        if (NODE_ENV === 'production') {
+            this._app.use(
+                express.static(path.join(__dirname, '/client/build'))
+            );
+            this._app.get('*', (req, res) => {
+                res.sendFile(
+                    path.resolve(__dirname, 'client', 'build', 'index.html')
+                );
+            });
+        } else {
+            controllers.forEach((controller) => {
+                this._app.use(controller.path, controller.setRoutes());
+            });
+        }
     }
 
     setConnection(query, data) {

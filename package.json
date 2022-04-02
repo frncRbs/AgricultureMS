@@ -12,7 +12,7 @@
         "lint": "eslint .",
         "data:import": "node ./src/data/users.js",
         "data:destroy": "node ./src/data/users.js -d",
-        "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install && rimraf build && babel src -d build"
+        "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
     },
     "engines": {
         "node": "14.x"

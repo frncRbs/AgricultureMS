@@ -25,7 +25,6 @@ module.exports = {
                 origin: '*',
                 methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
             }),
-            // express.static(path.join(__dirname, '/client/build')),
         ],
     },
     db: {

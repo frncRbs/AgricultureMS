@@ -18,7 +18,7 @@ module.exports = {
         (req, res, next) => {
             const allowedOrigins = [
                 'http://localhost:3000',
-                'https://ayala-agriculturist.netlify.app/',
+                'https://ayala-agriculturist.netlify.app',
             ];
             const origin = req.headers.origin;
 

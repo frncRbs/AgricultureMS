@@ -7,7 +7,7 @@
     "scripts": {
         "start:dev": "nodemon --exec ./node_modules/.bin/babel-node ./src/_app.js",
         "start": "npm install && npm run build && npm build/_app.js && npm run build",
-        "build": "babel src -d build",
+        "build": "babel-node src -d build",
         "client": "npm start --prefix client",
         "lint": "eslint .",
         "data:import": "node ./src/data/users.js",

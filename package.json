@@ -15,7 +15,7 @@
         "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
     },
     "engines": {
-        "node": "17.3.0"
+        "node": "14.x"
     },
     "keywords": [
         "Agriculture Management System",

@@ -18,10 +18,10 @@ module.exports = {
         port: PORT,
         host: HOST,
         globalMiddlewares: [
+            ...globalConfig.middlewares,
             cors({
                 origin: CLIENT_HOST,
             }),
-            ...globalConfig.middlewares,
             // express.static(path.join(__dirname, '/client/build')),
         ],
     },

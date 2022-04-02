@@ -6,9 +6,11 @@
     "type": "commonjs",
     "scripts": {
         "start:dev": "nodemon --exec ./node_modules/.bin/babel-node ./src/_app.js",
-        "start": "./node_modules/.bin/babel-node ./src/_app.js",
-        "build": "npx babel src --out-dir build",
         "client": "npm start --prefix client",
+        "clean": "rm -rf build && mkdir build",
+        "build-babel": "babel -d ./build ./src -s",
+        "build": "npm run clean && npm run build-babel",
+        "start": "npm run build && node ./build/_app.js",
         "client-install": "cd client && npm install",
         "lint": "eslint .",
         "data:destroy": "node ./src/data/users.js -d",

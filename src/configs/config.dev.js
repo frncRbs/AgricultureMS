@@ -5,6 +5,7 @@ const {
     MYSQL_DATABASE,
     PORT,
     HOST,
+    MYSQL_PORT,
 } = require('constants/envs');
 const logger = require('morgan');
 const cors = require('cors');
@@ -35,6 +36,7 @@ module.exports = {
             user: MYSQL_USER,
             password: MYSQL_PASSWORD,
             database: MYSQL_DATABASE,
+            port: MYSQL_PORT,
         },
     },
     mailjet: {

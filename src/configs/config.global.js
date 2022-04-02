@@ -16,15 +16,19 @@ module.exports = {
         methodOverride('X-HTTP-Method-Override') /* Google/GData */,
         methodOverride('X-Method-Override') /* IBM */,
         (req, res, next) => {
-            const allowedOrigins = [
-                'http://localhost:3000',
-                'https://ayala-agriculturist.netlify.app',
-            ];
-            const origin = req.headers.origin;
+            // const allowedOrigins = [
+            //     'http://localhost:3000',
+            //     'https://ayala-agriculturist.netlify.app',
+            // ];
+            // const origin = req.headers.origin;
 
-            if (allowedOrigins.includes(origin)) {
-                res.header('Access-Control-Allow-Origin', origin);
-            }
+            // if (allowedOrigins.includes(origin)) {
+            // }
+
+            res.header(
+                'Access-Control-Allow-Origin',
+                'https://ayala-agriculturist.netlify.app'
+            );
 
             res.header(
                 'Access-Control-Allow-Methods',

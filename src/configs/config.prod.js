@@ -21,6 +21,9 @@ module.exports = {
             ...globalConfig.middlewares,
             cors({
                 origin: CLIENT_HOST,
+                optionsSuccessStatus: 200,
+                origin: '*',
+                methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
             }),
             // express.static(path.join(__dirname, '/client/build')),
         ],

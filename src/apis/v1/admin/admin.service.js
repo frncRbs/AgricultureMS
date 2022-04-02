@@ -55,10 +55,10 @@ class AdminService {
                 });
 
                 /* Supply and save new user id to role id as a primary key */
-                // await Role.create({
-                //     id: _createdUser.insertId,
-                //     role: PERSONNEL_ROLE,
-                // });
+                await Role.create({
+                    id: _createdUser.insertId,
+                    role: PERSONNEL_ROLE,
+                });
             },
         };
     }

@@ -36,5 +36,14 @@ var authRoutes = [{
   method: POST,
   controller: changePassword,
   localMiddlewares: [authenticate, validateFieldsFor('changePassword')]
+}, {
+  path: '/test',
+  method: GET,
+  controller: function controller(req, res) {
+    res.json({
+      status: 'success'
+    });
+  },
+  localMiddlewares: []
 }];
 module.exports = authRoutes;

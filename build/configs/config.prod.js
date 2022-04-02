@@ -1,16 +1,12 @@
 "use strict";
 
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
 
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+var _toConsumableArray2 = _interopRequireDefault(require("@babel/runtime/helpers/toConsumableArray"));
 
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+var _cors;
 
 var express = require('express');
 
@@ -22,7 +18,9 @@ var _require = require("../constants/envs"),
     MYSQL_PASSWORD = _require.MYSQL_PASSWORD,
     MYSQL_DATABASE = _require.MYSQL_DATABASE,
     PORT = _require.PORT,
-    HOST = _require.HOST;
+    HOST = _require.HOST,
+    MYSQL_PORT = _require.MYSQL_PORT,
+    CLIENT_HOST = _require.CLIENT_HOST;
 
 var cors = require('cors');
 
@@ -32,16 +30,19 @@ module.exports = {
   app: {
     port: PORT,
     host: HOST,
-    globalMiddlewares: [].concat(_toConsumableArray(globalConfig.middlewares), [cors({
-      origin: 'http://localhost:3000'
-    }), express["static"](path.join(__dirname, '/client/build'))])
+    globalMiddlewares: [].concat((0, _toConsumableArray2["default"])(globalConfig.middlewares), [cors((_cors = {
+      origin: CLIENT_HOST,
+      optionsSuccessStatus: 200
+    }, (0, _defineProperty2["default"])(_cors, "origin", '*'), (0, _defineProperty2["default"])(_cors, "methods", 'GET,HEAD,PUT,PATCH,POST,DELETE'), _cors)) // express.static(path.join(__dirname, '/client/build')),
+    ])
   },
   db: {
     mysql: {
       host: MYSQL_HOST,
       user: MYSQL_USER,
       password: MYSQL_PASSWORD,
-      database: MYSQL_DATABASE
+      database: MYSQL_DATABASE,
+      port: MYSQL_PORT
     }
   },
   mailjet: {

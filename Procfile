@@ -1,1 +1,1 @@
-web: npm install node ./node_modules/.bin/babel-node ./src/_app.js
+web: node build/_app.js

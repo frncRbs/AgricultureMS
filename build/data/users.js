@@ -1,8 +1,10 @@
 "use strict";
 
-var _ref;
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
+
+var _ref;
 
 var _require = require("../helpers/utils/util.password"),
     comparePassword = _require.comparePassword,
@@ -15,7 +17,7 @@ var farmers = [(_ref = {
   firstname: 'France',
   lastname: 'Rebollos',
   middlename: 'France'
-}, _defineProperty(_ref, "middlename", 'France'), _defineProperty(_ref, "position", 'rice program'), _defineProperty(_ref, "mobileNumber", '09552536888'), _defineProperty(_ref, "gender", 'male'), _defineProperty(_ref, "birthDate", '03-01-2020'), _defineProperty(_ref, "placeOfBirth", 'Ayala City'), _defineProperty(_ref, "civilStatus", 'single'), _defineProperty(_ref, "religion", 'catholic'), _defineProperty(_ref, "street", 'Ayala Street'), _defineProperty(_ref, "subdivision", 'Subdivison 1'), _defineProperty(_ref, "sitio", 'sitio 1'), _defineProperty(_ref, "barangay", 'Barangay Santa Cruz'), _defineProperty(_ref, "municipality", 'Ayala Municipality'), _defineProperty(_ref, "zipCode", '3001'), _defineProperty(_ref, "username", 'farfrance'), _defineProperty(_ref, "password", hashPassword('farmer')), _ref), {
+}, (0, _defineProperty2["default"])(_ref, "middlename", 'France'), (0, _defineProperty2["default"])(_ref, "position", 'rice program'), (0, _defineProperty2["default"])(_ref, "mobileNumber", '09552536888'), (0, _defineProperty2["default"])(_ref, "gender", 'male'), (0, _defineProperty2["default"])(_ref, "birthDate", '03-01-2020'), (0, _defineProperty2["default"])(_ref, "placeOfBirth", 'Ayala City'), (0, _defineProperty2["default"])(_ref, "civilStatus", 'single'), (0, _defineProperty2["default"])(_ref, "religion", 'catholic'), (0, _defineProperty2["default"])(_ref, "street", 'Ayala Street'), (0, _defineProperty2["default"])(_ref, "subdivision", 'Subdivison 1'), (0, _defineProperty2["default"])(_ref, "sitio", 'sitio 1'), (0, _defineProperty2["default"])(_ref, "barangay", 'Barangay Santa Cruz'), (0, _defineProperty2["default"])(_ref, "municipality", 'Ayala Municipality'), (0, _defineProperty2["default"])(_ref, "zipCode", '3001'), (0, _defineProperty2["default"])(_ref, "username", 'farfrance'), (0, _defineProperty2["default"])(_ref, "password", hashPassword('farmer')), _ref), {
   role: 'farmer',
   firstname: 'Jeth',
   middlename: 'Jeth',

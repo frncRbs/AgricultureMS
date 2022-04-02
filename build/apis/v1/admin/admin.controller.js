@@ -1,14 +1,14 @@
 "use strict";
 
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
 
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
 
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
 
 var adminService = require("./admin.service");
 
@@ -20,10 +20,10 @@ var _require2 = require("../../../helpers/utils/util.truthy-object"),
 
 var AdminController = /*#__PURE__*/function () {
   function AdminController() {
-    _classCallCheck(this, AdminController);
+    (0, _classCallCheck2["default"])(this, AdminController);
   }
 
-  _createClass(AdminController, [{
+  (0, _createClass2["default"])(AdminController, [{
     key: "createPersonnelAccount",
     value:
     /**
@@ -34,10 +34,10 @@ var AdminController = /*#__PURE__*/function () {
      * @returns {Object}
      */
     function () {
-      var _createPersonnelAccount = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(req, res) {
+      var _createPersonnelAccount = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(req, res) {
         var user, _yield$adminService$c, isAlreadyRegistered, isMobileAlreadyExist, create;
 
-        return regeneratorRuntime.wrap(function _callee$(_context) {
+        return _regenerator["default"].wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
@@ -113,10 +113,10 @@ var AdminController = /*#__PURE__*/function () {
   }, {
     key: "deactiveAccount",
     value: function () {
-      var _deactiveAccount = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(req, res) {
+      var _deactiveAccount = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee2(req, res) {
         var id, _yield$adminService$d, save, isUserExist;
 
-        return regeneratorRuntime.wrap(function _callee2$(_context2) {
+        return _regenerator["default"].wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
@@ -192,10 +192,10 @@ var AdminController = /*#__PURE__*/function () {
   }, {
     key: "activateAccount",
     value: function () {
-      var _activateAccount = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(req, res) {
+      var _activateAccount = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee3(req, res) {
         var id, _yield$adminService$a, save, isUserExist;
 
-        return regeneratorRuntime.wrap(function _callee3$(_context3) {
+        return _regenerator["default"].wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
@@ -257,10 +257,10 @@ var AdminController = /*#__PURE__*/function () {
   }, {
     key: "changeRole",
     value: function () {
-      var _changeRole = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(req, res) {
+      var _changeRole = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee4(req, res) {
         var _req$body, id, role, _yield$adminService$c2, save, isUserExist;
 
-        return regeneratorRuntime.wrap(function _callee4$(_context4) {
+        return _regenerator["default"].wrap(function _callee4$(_context4) {
           while (1) {
             switch (_context4.prev = _context4.next) {
               case 0:
@@ -322,10 +322,10 @@ var AdminController = /*#__PURE__*/function () {
   }, {
     key: "createNewProgram",
     value: function () {
-      var _createNewProgram = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(req, res) {
+      var _createNewProgram = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee5(req, res) {
         var _req$body2, type, id, program, identifier, response;
 
-        return regeneratorRuntime.wrap(function _callee5$(_context5) {
+        return _regenerator["default"].wrap(function _callee5$(_context5) {
           while (1) {
             switch (_context5.prev = _context5.next) {
               case 0:
@@ -372,10 +372,10 @@ var AdminController = /*#__PURE__*/function () {
   }, {
     key: "updateProgram",
     value: function () {
-      var _updateProgram = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(req, res) {
+      var _updateProgram = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee6(req, res) {
         var _req$body3, identifier, program, response;
 
-        return regeneratorRuntime.wrap(function _callee6$(_context6) {
+        return _regenerator["default"].wrap(function _callee6$(_context6) {
           while (1) {
             switch (_context6.prev = _context6.next) {
               case 0:
@@ -423,9 +423,9 @@ var AdminController = /*#__PURE__*/function () {
   }, {
     key: "deleteProgram",
     value: function () {
-      var _deleteProgram = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7(req, res) {
+      var _deleteProgram = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee7(req, res) {
         var identifier, response;
-        return regeneratorRuntime.wrap(function _callee7$(_context7) {
+        return _regenerator["default"].wrap(function _callee7$(_context7) {
           while (1) {
             switch (_context7.prev = _context7.next) {
               case 0:
@@ -471,9 +471,9 @@ var AdminController = /*#__PURE__*/function () {
   }, {
     key: "listUsers",
     value: function () {
-      var _listUsers = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8(req, res) {
+      var _listUsers = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee8(req, res) {
         var role, response;
-        return regeneratorRuntime.wrap(function _callee8$(_context8) {
+        return _regenerator["default"].wrap(function _callee8$(_context8) {
           while (1) {
             switch (_context8.prev = _context8.next) {
               case 0:
@@ -518,9 +518,9 @@ var AdminController = /*#__PURE__*/function () {
   }, {
     key: "listPrograms",
     value: function () {
-      var _listPrograms = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee9(req, res) {
+      var _listPrograms = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee9(req, res) {
         var type, response;
-        return regeneratorRuntime.wrap(function _callee9$(_context9) {
+        return _regenerator["default"].wrap(function _callee9$(_context9) {
           while (1) {
             switch (_context9.prev = _context9.next) {
               case 0:
@@ -563,9 +563,9 @@ var AdminController = /*#__PURE__*/function () {
   }, {
     key: "getNotifications",
     value: function () {
-      var _getNotifications = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee10(req, res) {
+      var _getNotifications = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee10(req, res) {
         var response;
-        return regeneratorRuntime.wrap(function _callee10$(_context10) {
+        return _regenerator["default"].wrap(function _callee10$(_context10) {
           while (1) {
             switch (_context10.prev = _context10.next) {
               case 0:
@@ -597,7 +597,6 @@ var AdminController = /*#__PURE__*/function () {
       return getNotifications;
     }()
   }]);
-
   return AdminController;
 }();
 

@@ -7,8 +7,8 @@ const { Role } = require('models/model.role');
 
 class Token {
     static async signAccessToken({ res, user, message }) {
-        const accessToken = sign({...user }, ACCESS_TOKEN, {
-            expiresIn: '7d' /* 7 Days */ ,
+        const accessToken = sign({ ...user }, ACCESS_TOKEN, {
+            expiresIn: '7d' /* 7 Days */,
         });
 
         return sendResponse({
@@ -43,6 +43,7 @@ class Token {
             return { isVerified: false, username: null };
         }
 
+        console.log({ _roleFromDb, _user, role, username });
         return { isVerified: true, username, role };
     }
 }

@@ -15,7 +15,7 @@
         "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install && rimraf build && babel src -d build"
     },
     "engines": {
-        "node": "17.3.0"
+        "node": "14.x"
     },
     "keywords": [
         "Agriculture Management System",

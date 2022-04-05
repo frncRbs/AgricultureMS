@@ -37,6 +37,20 @@ class AdminService {
         return data;
     }
 
+    async updateUserAccount(id, role, isActivated) {
+        const { data } = await privateApi.post('/admin/change_role', {
+            id,
+            role,
+        });
+
+        await privateApi.post('/admin/set_account_status', {
+            id,
+            isActivated,
+        });
+
+        return data;
+    }
+
     async listUsers(role) {
         const { data } = await privateApi.post('/admin/list_users', role);
 

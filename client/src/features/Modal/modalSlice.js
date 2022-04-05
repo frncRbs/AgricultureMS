@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
     newProgramModal: false,
     editProgramModal: false,
+    editUserModal: false,
 };
 
 const { reducer, actions } = createSlice({

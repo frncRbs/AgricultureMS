@@ -2,7 +2,6 @@ const mysql = require('mysql2');
 const configs = require('configs');
 const express = require('express');
 const ApiError = require('helpers/utils/util.api.error');
-const path = require('path');
 const { NODE_ENV } = require('constants/envs');
 
 class Server {
@@ -10,9 +9,13 @@ class Server {
 
     run() {
         this._app.listen(configs.app.port, async () => {
-            console.log(
-                `\n\n✅ http://${configs.app.host}:${configs.app.port}`
-            );
+            if (NODE_ENV === 'production') {
+                console.log('✅', configs.app.host);
+            } else {
+                console.log(
+                    `\n\n✅ http://${configs.app.host}:${configs.app.port}`
+                );
+            }
             await this.setConnection();
         });
 
@@ -27,51 +30,20 @@ class Server {
     setGlobalMiddlewares(globalMiddlewares) {
         if (NODE_ENV === 'production') {
             this._app.use((req, res, next) => {
-                // const allowedOrigins = [
-                //     'http://localhost:3000',
-                //     'https://ayala-agriculturist.netlify.app',
-                // ];
-                // const origin = req.headers.origin;
-
-                // if (allowedOrigins.includes(origin)) {
-                // }
-
                 res.header('Access-Control-Allow-Origin', '*'); // testing
-
-                // res.header(
-                //     'Access-Control-Allow-Methods',
-                //     'GET, PATCH, PUT, DELETE, POST'
-                // );
-
-                // res.header(
-                //     'Access-Control-Allow-Headers',
-                //     'Origin, X-Requested-With, Content-Type, Accept'
-                // );
 
                 next();
             });
         }
-
         globalMiddlewares.map((middleware) => {
             this._app.use(middleware);
         });
     }
 
     setControllers(controllers) {
-        // if (NODE_ENV === 'production') {
-        //     this._app.use(
-        //         express.static(path.join(__dirname, '/client/build'))
-        //     );
-        //     this._app.get('*', (req, res) => {
-        //         res.sendFile(
-        //             path.resolve(__dirname, 'client', 'build', 'index.html')
-        //         );
-        //     });
-        // } else {
         controllers.forEach((controller) => {
             this._app.use(controller.path, controller.setRoutes());
         });
-        // }
     }
 
     setConnection(query, data) {
@@ -83,6 +55,7 @@ class Server {
                     reject(err);
                 }
 
+                console.log('👽 DB CONNECTED');
                 if (query) {
                     sql.query(query, data && [...data], (err, results) => {
                         if (err) reject(err);

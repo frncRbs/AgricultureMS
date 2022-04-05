@@ -38,9 +38,5 @@ table {
     button {
         width: 8em;
         transform: scale(0.8);
-        &:last-child {
-            color: var(--white-0);
-            background-color: var(--red-1);
-        }
     }
 }

@@ -1,0 +1,24 @@
+.badge {
+    padding: 0.5em 0.8em 0.5em 0.8em;
+    border-radius: 50px;
+    text-align: center;
+    transform: scale(0.9);
+    span {
+        color: var(--white-0);
+    }
+}
+
+.badge.red {
+    background-color: rgb(230, 94, 94);
+}
+
+.badge.green {
+    background-color: rgb(94, 230, 105);
+}
+
+.badge.white {
+    background-color: rgb(197, 196, 196);
+    span {
+        color: var(--black-1);
+    }
+}

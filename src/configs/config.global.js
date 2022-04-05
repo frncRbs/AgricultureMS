@@ -12,8 +12,8 @@ module.exports = {
         cookieParser(),
         helmet(),
         /* override with different headers; last one takes precedence */
-        methodOverride('X-HTTP-Method') /* Microsoft */,
-        methodOverride('X-HTTP-Method-Override') /* Google/GData */,
-        methodOverride('X-Method-Override') /* IBM */,
+        methodOverride('X-HTTP-Method') /* Microsoft */ ,
+        methodOverride('X-HTTP-Method-Override') /* Google/GData */ ,
+        methodOverride('X-Method-Override') /* IBM */ ,
     ],
 };

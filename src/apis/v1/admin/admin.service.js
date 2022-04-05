@@ -42,12 +42,12 @@ class AdminService {
                 /* Create new user */
                 const _createdUser = await User.create(newUser);
 
-                await _createdUser.joinTable('personnels', {
+                await _createdUser.joinTable('Personnels', {
                     id: _createdUser.insertId,
                     position: user.position,
                 });
 
-                await _createdUser.joinTable('personnelsaddresses', {
+                await _createdUser.joinTable('PersonnelsAddresses', {
                     personnelId: _createdUser.insertId,
                     provincial: user.provincial,
                     barangay: user.barangay,
@@ -64,12 +64,12 @@ class AdminService {
     }
 
     /**
-     * @func deactiveAccount
-     * @desc Service for deactivating users account
+     * @func setAccountStatus
+     * @desc Service for deactivating and activating users account
      * @param {String} id
      * @returns {Object}
      */
-    async deactiveAccount(id) {
+    async setAccountStatus(id, isActivated) {
         let isUserExist = false;
 
         let userFromDb = await User.findOne({ id });
@@ -80,28 +80,11 @@ class AdminService {
 
         return {
             isUserExist,
-            save: async () => await User.updateOne({ id }, { isActivated: 0 }),
-        };
-    }
-
-    /**
-     * @func activateAccount
-     * @desc Service for activating users account
-     * @param {String} id
-     * @returns {Object}
-     */
-    async activateAccount(id) {
-        let isUserExist = false;
-
-        let userFromDb = await User.findOne({ id });
-
-        if (Object.entries(userFromDb).length) {
-            isUserExist = true;
-        }
-
-        return {
-            isUserExist,
-            save: async () => await User.updateOne({ id }, { isActivated: 1 }),
+            save: async () =>
+                await User.updateOne(
+                    { id },
+                    { isActivated: Number(isActivated) }
+                ),
         };
     }
 
@@ -139,7 +122,7 @@ class AdminService {
 
         const _createdProgram = await Program.insert(table, { name: program });
 
-        const _createdNewTable = await _createdProgram.joinTable('programs', {
+        const _createdNewTable = await _createdProgram.joinTable('Programs', {
             [`${table.slice(0, -1)}Id`]: _createdProgram.insertId,
         });
 

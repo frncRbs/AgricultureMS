@@ -37,13 +37,16 @@ class Token {
 
         const _user = await User.findOne({ username });
 
+        if (!_user.length) {
+            return { isVerified: false, username: null };
+        }
+
         const _roleFromDb = await Role.findOne({ id: _user[0].roleId });
 
         if (username !== _user[0].username && role !== _roleFromDb[0].role) {
             return { isVerified: false, username: null };
         }
 
-        console.log({ _roleFromDb, _user, role, username });
         return { isVerified: true, username, role };
     }
 }

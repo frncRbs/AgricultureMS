@@ -11,7 +11,7 @@ class Role {
     static async findOne(identifier) {
         const { toPlaceholder, toObjectValue } = mapObjectKey(identifier);
 
-        const sql = `SELECT role FROM roles WHERE ${toPlaceholder} LIMIT 1`;
+        const sql = `SELECT role FROM Roles WHERE ${toPlaceholder} LIMIT 1`;
 
         console.log({ sql });
 
@@ -27,7 +27,7 @@ class Role {
     static async create(data) {
         const { toPlaceholder, toObjectValue } = mapObjectKey(data);
 
-        const sql = `INSERT INTO roles SET ${toPlaceholder}`;
+        const sql = `INSERT INTO Roles SET ${toPlaceholder}`;
 
         console.log({ sql });
 

@@ -4,7 +4,7 @@ import adminService from './adminService';
 
 export const createPersonnelAccount = createAsyncThunk(
     'admin/personnel',
-    async(account, thunkAPI) => {
+    async (account, thunkAPI) => {
         try {
             const response = await adminService.createPersonnel(account);
 
@@ -25,7 +25,7 @@ export const createPersonnelAccount = createAsyncThunk(
 
 export const listUsers = createAsyncThunk(
     'admin/list_users',
-    async(role, thunkAPI) => {
+    async (role, thunkAPI) => {
         try {
             const response = await adminService.listUsers(role);
 
@@ -40,7 +40,7 @@ export const listUsers = createAsyncThunk(
 
 export const createNewProgram = createAsyncThunk(
     'admin/new_program',
-    async(program, thunkAPI) => {
+    async (program, thunkAPI) => {
         try {
             const response = await adminService.createNewProgram(program);
 
@@ -61,7 +61,7 @@ export const createNewProgram = createAsyncThunk(
 
 export const listPrograms = createAsyncThunk(
     'admin/list_programs',
-    async(program, thunkAPI) => {
+    async (program, thunkAPI) => {
         try {
             const response = await adminService.listPrograms(program);
 
@@ -76,7 +76,7 @@ export const listPrograms = createAsyncThunk(
 
 export const updateProgram = createAsyncThunk(
     'admin/update_program',
-    async(data, thunkAPI) => {
+    async (data, thunkAPI) => {
         const { identifier, program } = data;
 
         /**
@@ -105,9 +105,36 @@ export const updateProgram = createAsyncThunk(
     }
 );
 
+export const updateUserAccount = createAsyncThunk(
+    'admin/update_account',
+    async (data, thunkAPI) => {
+        const { id, role, isActivated } = data;
+
+        try {
+            const response = await adminService.updateUserAccount(
+                id,
+                role,
+                isActivated
+            );
+
+            if (response['isSuccess']) {
+                notifyUser({
+                    isSuccess: true,
+                    message: 'Account Successfully Updated!',
+                    thunkAPI,
+                });
+
+                return response;
+            }
+        } catch (err) {
+            return notifyUser({ isError: true, message: err, thunkAPI });
+        }
+    }
+);
+
 export const deleteProgram = createAsyncThunk(
     'admin/delete_program',
-    async(data, thunkAPI) => {
+    async (data, thunkAPI) => {
         const { type, id } = data;
 
         const identifier = {
@@ -150,7 +177,7 @@ const { reducer, actions } = createSlice({
     initialState,
     reducers: {
         handleProgramChange: (state, { payload }) => {
-            state['setProgram'] = {...payload };
+            state['setProgram'] = { ...payload };
         },
     },
     extraReducers: {
@@ -192,10 +219,12 @@ const { reducer, actions } = createSlice({
                     isSuccess: false,
                 });
             }
+
             return Object.assign(state, {
                 isLoading: false,
                 isSuccess: true,
                 users: payload.data,
+                updatedObject: payload.data && payload.data.insertId,
             });
         },
         [listUsers.rejected]: (state) => {
@@ -219,9 +248,8 @@ const { reducer, actions } = createSlice({
                 });
             }
 
-            console.log({ createdpayload: payload });
             return Object.assign(state, {
-                program: payload.data,
+                users: payload.data,
                 isLoading: false,
                 isSuccess: true,
                 updatedObject: payload.data.insertId, // to invoke DOM when changes is detected
@@ -247,6 +275,7 @@ const { reducer, actions } = createSlice({
                     isSuccess: false,
                 });
             }
+
             return Object.assign(state, {
                 programs: payload.data,
                 isLoading: false,
@@ -255,6 +284,35 @@ const { reducer, actions } = createSlice({
             });
         },
         [listPrograms.rejected]: (state) => {
+            return Object.assign(state, {
+                isLoading: false,
+                isSuccess: false,
+            });
+        },
+
+        /* List programs */
+        [updateUserAccount.pending]: (state) => {
+            return Object.assign(state, {
+                isLoading: true,
+            });
+        },
+        [updateUserAccount.fulfilled]: (state, { payload }) => {
+            if (payload['isError']) {
+                return Object.assign(state, {
+                    isLoading: false,
+                    isSuccess: false,
+                });
+            }
+
+            console.log({ updateUserAccount: payload });
+            return Object.assign(state, {
+                programs: payload.data,
+                isLoading: false,
+                isSuccess: true,
+                updatedObject: payload.data.insertId,
+            });
+        },
+        [updateUserAccount.rejected]: (state) => {
             return Object.assign(state, {
                 isLoading: false,
                 isSuccess: false,
@@ -274,6 +332,9 @@ const { reducer, actions } = createSlice({
                     isSuccess: false,
                 });
             }
+
+            console.log({ updateProgram: payload });
+
             return Object.assign(state, {
                 isLoading: false,
                 isSuccess: true,

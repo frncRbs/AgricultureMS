@@ -28,14 +28,6 @@ const authRoutes = [
         controller: changePassword,
         localMiddlewares: [authenticate, validateFieldsFor('changePassword')],
     },
-    {
-        path: '/test',
-        method: GET,
-        controller: (req, res) => {
-            res.json({ status: 'success' });
-        },
-        localMiddlewares: [],
-    },
 ];
 
 module.exports = authRoutes;

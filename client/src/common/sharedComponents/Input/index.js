@@ -93,7 +93,10 @@ const Input = ({
                         {data.map((obj, i) => (
                             <option
                                 key={i}
-                                selected={value}
+                                selected={
+                                    obj['selected'] ||
+                                    (obj['value'] === value && value)
+                                }
                                 value={obj['value']}
                                 disabled={obj['disabled']}
                             >

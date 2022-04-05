@@ -7,7 +7,7 @@ const validateFieldsFor = require('middlewares/middleware.validator');
 const {
     createPersonnelAccount,
     deactiveAccount,
-    activateAccount,
+    setAccountStatus,
     changeRole,
     createNewProgram,
     listPrograms,
@@ -30,15 +30,9 @@ const adminRoutes = [
         ],
     },
     {
-        path: `${rolePath}/deactive_account`,
+        path: `${rolePath}/set_account_status`,
         method: POST,
-        controller: deactiveAccount,
-        localMiddlewares: [authenticate, verifyAdmin],
-    },
-    {
-        path: `${rolePath}/activate_account`,
-        method: POST,
-        controller: activateAccount,
+        controller: setAccountStatus,
         localMiddlewares: [authenticate, verifyAdmin],
     },
     {

@@ -48,8 +48,10 @@ class UserMethods {
      */
     static async findAll(identifier) {
         const { toPlaceholder, toObjectValue } = mapObjectKey(identifier);
+        let sql = ``;
 
-        const sql = `SELECT * FROM users WHERE ${toPlaceholder} `;
+        if (toObjectValue[0] === 'all') sql = `SELECT * FROM Users`;
+        else sql = `SELECT * FROM Users WHERE ${toPlaceholder} `;
 
         console.log({ sql });
 
@@ -95,6 +97,7 @@ class UserMethods {
      * @returns - Array
      */
     static async updateOne(identifier, data) {
+        console.log({ identifier, data });
         const mappedIdentifier = mapObjectKey(identifier);
         const mappedData = mapObjectKey(data);
 

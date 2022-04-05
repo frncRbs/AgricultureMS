@@ -23,6 +23,7 @@
             display: grid;
             align-items: center;
             grid-template-columns: repeat(2, 1fr);
+            z-index: 9;
             .left {
                 line-height: 30px;
                 h1 {

@@ -12,7 +12,3 @@ const _app = () => {
 };
 
 _app();
-
-/**
- * @HowToRun Procfile = heroku local web
- */

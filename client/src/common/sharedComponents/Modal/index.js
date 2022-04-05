@@ -7,14 +7,14 @@ import 'react-responsive-modal/styles.css';
 import './_index.scss';
 
 const ModalComponent = ({ children, handleOnModalClose }) => {
-    const { newProgramModal, editProgramModal } = useSelector(
+    const { newProgramModal, editProgramModal, editUserModal } = useSelector(
         (state) => state.modal
     );
 
     return (
         <ReactModal
             center
-            open={newProgramModal || editProgramModal}
+            open={newProgramModal || editProgramModal || editUserModal}
             onClose={handleOnModalClose}
             closeOnOverlayClick={false}
             classNames={{

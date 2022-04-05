@@ -5,7 +5,7 @@ const privateApi = axios.create();
 const publicApi = axios.create();
 
 const instanceConfig = (instance) => {
-    instance.defaults.baseURL = 'https://ayalaserver.herokuapp.com';
+    instance.defaults.baseURL = 'http://localhost:4001';
     // instance.defaults.withCredentials = true;
 };
 

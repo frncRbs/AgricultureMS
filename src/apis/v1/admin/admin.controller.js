@@ -14,7 +14,7 @@ class AdminController {
         const user = req.body;
 
         const { isAlreadyRegistered, isMobileAlreadyExist, create } =
-        await adminService.createPersonnelAccount(user);
+            await adminService.createPersonnelAccount(user);
 
         if (isAlreadyRegistered.length) {
             return sendResponse({
@@ -46,14 +46,14 @@ class AdminController {
     }
 
     /**
-     * @func deactiveAccount
-     * @desc Controller for deactivating users account
+     * @func setAccountStatus
+     * @desc Controller for deactivating and activating users account
      * @param {Object} req
      * @param {Object} res
      * @returns {Object}
      */
-    async deactiveAccount(req, res) {
-        const { id } = req.body;
+    async setAccountStatus(req, res) {
+        const { id, isActivated } = req.body;
 
         if (!id) {
             return sendResponse({
@@ -64,7 +64,10 @@ class AdminController {
             });
         }
 
-        const { save, isUserExist } = await adminService.deactiveAccount(id);
+        const { save, isUserExist } = await adminService.setAccountStatus(
+            id,
+            isActivated
+        );
 
         if (!isUserExist) {
             return sendResponse({
@@ -75,44 +78,14 @@ class AdminController {
             });
         }
 
-        await save();
+        const response = await save();
 
         return sendResponse({
             res,
             statusCode: 201,
             isSuccess: true,
-            message: `This account was successfully Deactivated!`,
-        });
-    }
-
-    /**
-     * @func activateAccount
-     * @desc Controller for activating users account
-     * @param {Object} req
-     * @param {Object} res
-     * @returns {Object}
-     */
-    async activateAccount(req, res) {
-        const { id } = req.body;
-
-        const { save, isUserExist } = await adminService.activateAccount(id);
-
-        if (!isUserExist) {
-            return sendResponse({
-                res,
-                statusCode: 400,
-                isSuccess: false,
-                message: `There is no user with this id ${id}`,
-            });
-        }
-
-        await save();
-
-        return sendResponse({
-            res,
-            statusCode: 201,
-            isSuccess: true,
-            message: `This account was successfully Activated!`,
+            message: `This account was successfully updated!`,
+            data: response,
         });
     }
 
@@ -137,13 +110,14 @@ class AdminController {
             });
         }
 
-        await save();
+        const response = await save();
 
         return sendResponse({
             res,
             statusCode: 201,
             isSuccess: true,
             message: `The role of this user has been successfuly updated!`,
+            data: response,
         });
     }
 
@@ -183,9 +157,12 @@ class AdminController {
     async updateProgram(req, res) {
         const { identifier, program } = req.body;
 
-        const response = await adminService.updateProgram({ table: identifier['type'], id: identifier['id'] }, {
-            name: program,
-        });
+        const response = await adminService.updateProgram(
+            { table: identifier['type'], id: identifier['id'] },
+            {
+                name: program,
+            }
+        );
 
         return sendResponse({
             res,
@@ -236,8 +213,8 @@ class AdminController {
             res,
             statusCode: 201,
             isSuccess: true,
-            message: `Farmers Successfullly Retrieved!`,
-            data: response,
+            message: `Users Successfullly Retrieved!`,
+            data: response || {},
         });
     }
 

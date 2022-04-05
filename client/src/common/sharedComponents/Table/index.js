@@ -8,8 +8,8 @@ import {
     Td,
 } from 'react-super-responsive-table';
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
-import Button from '../Button';
-import Preloader from '../Preloader';
+
+import { Badge, Button, Preloader } from '../../';
 
 import './_index.scss';
 const Table = ({ type, table }) => {
@@ -64,28 +64,27 @@ const Table = ({ type, table }) => {
                                 <Td>{obj.middlename || none}</Td>
                                 <Td>{obj.dateActive || none}</Td>
                                 <Td>{obj.birthDate || none}</Td>
+                                <Td>
+                                    {Number(obj.isActivated) === 1 ? (
+                                        <Badge text="Activated" color="green" />
+                                    ) : (
+                                        <Badge text="Deactivated" color="red" />
+                                    )}
+                                </Td>
                                 <Td>{obj.role || none}</Td>
                                 <Td className="col custom__td">
                                     <Button
                                         name="Edit"
                                         style="primary"
                                         onClick={() =>
-                                            table.actions.edit(
-                                                obj.id,
-                                                obj.optionalType,
-                                                obj.name
-                                            )
+                                            table.actions.edit({
+                                                id: obj.id,
+                                                role: obj.role,
+                                                isActivated: Number(
+                                                    obj.isActivated
+                                                ),
+                                            })
                                         }
-                                    />
-                                    <Button
-                                        onClick={() =>
-                                            table.actions.delete(
-                                                obj.id,
-                                                obj.optionalType
-                                            )
-                                        }
-                                        name="Delete"
-                                        style="secondary"
                                     />
                                 </Td>
                             </Tr>
@@ -160,6 +159,8 @@ const Table = ({ type, table }) => {
                                                 )
                                             }
                                             name="Delete"
+                                            background="var(--red-1)"
+                                            color="var(--white-0)"
                                             style="secondary"
                                         />
                                     </Td>

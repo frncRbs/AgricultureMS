@@ -23,6 +23,14 @@ const authRoutes = [
         localMiddlewares: [],
     },
     {
+        path: '/test',
+        method: GET,
+        controller: (req, res) => {
+            res.json({ success: true });
+        },
+        localMiddlewares: [],
+    },
+    {
         path: '/change_password',
         method: POST,
         controller: changePassword,

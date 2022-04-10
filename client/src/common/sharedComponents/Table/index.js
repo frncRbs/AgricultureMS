@@ -10,6 +10,7 @@ import {
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 
 import { Badge, Button, Preloader } from '../../';
+import { capitalizeFirstLetter } from '../../helpers/letters';
 
 import './_index.scss';
 const Table = ({ type, table }) => {
@@ -55,7 +56,7 @@ const Table = ({ type, table }) => {
                         </Tr>
                     </Thead>
                     <Tbody>
-                        {table.data.map((obj, i) => (
+                        {table.data?.map((obj, i) => (
                             <Tr key={i}>
                                 <Td>{obj.id}</Td>
                                 <Td>{obj.image || none}</Td>
@@ -65,7 +66,7 @@ const Table = ({ type, table }) => {
                                 <Td>{obj.dateActive || none}</Td>
                                 <Td>{obj.birthDate || none}</Td>
                                 <Td>
-                                    {Number(obj.isActivated) === 1 ? (
+                                    {obj.isActivated === 1 ? (
                                         <Badge text="Activated" color="green" />
                                     ) : (
                                         <Badge text="Deactivated" color="red" />
@@ -78,11 +79,16 @@ const Table = ({ type, table }) => {
                                         style="primary"
                                         onClick={() =>
                                             table.actions.edit({
-                                                id: obj.id,
+                                                isActivated: obj.isActivated,
                                                 role: obj.role,
-                                                isActivated: Number(
-                                                    obj.isActivated
-                                                ),
+                                                id: obj.id,
+                                                fullname:
+                                                    obj.firstname &&
+                                                    `${capitalizeFirstLetter(
+                                                        obj.firstname
+                                                    )} ${capitalizeFirstLetter(
+                                                        obj.lastname
+                                                    )}`,
                                             })
                                         }
                                     />

@@ -61,6 +61,16 @@
     }
 }
 
+.account__details {
+    border-top: solid 0.5em var(--green-1);
+    display: grid;
+    grid-gap: 1em;
+    background: var(--white-1);
+    border-radius: var(--radius-1);
+    padding: 1em;
+    margin: 0.2em 0 1em 0;
+}
+
 .manage__accounts,
 .search__user,
 .site__content,

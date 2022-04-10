@@ -20,7 +20,9 @@ const Dashboard = () => {
 
     /* Submit Data  */
     const listUsersBasedOnRole = async (role) => {
-        await dispatch(listUsers(role)).unwrap();
+        await dispatch(
+            listUsers({ ...role, isIncludeOtherDetails: true })
+        ).unwrap();
     };
 
     useEffect(() => {
@@ -50,6 +52,8 @@ const Dashboard = () => {
             value: 'Value 2',
         },
     ];
+
+    // https://www.fastcomet.com/pricing#HostingFeatures
 
     const statistics = [
         {
@@ -102,6 +106,9 @@ const Dashboard = () => {
                         name="program"
                         register={register}
                         required
+                        _onChange={(name, value) =>
+                            listUsersBasedOnRole({ role: 'personnel' })
+                        }
                     />
                     <Button style="primary" name="Print" />
                 </FilterGroup>

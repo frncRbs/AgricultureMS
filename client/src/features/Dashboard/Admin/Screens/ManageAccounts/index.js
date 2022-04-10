@@ -14,18 +14,37 @@ import { updateUserAccount, listUsers } from '../../adminSlice';
 import { setModalState } from '../../../../Modal/modalSlice';
 
 import '../../_index.scss';
+import { capitalizeFirstLetter } from '../../../../../common/helpers/letters';
 
-const EditUser = ({ roles, accountStatuses, dispatch, user }) => {
-    const { id, role, isActivated } = user;
+const formatAccountStatus = (status) => {
+    const accountStatus = {
+        activate: 'activate',
+        deactivate: 'deactivate',
+    };
+    return {
+        stringResult:
+            status === 1 ? accountStatus.activate : accountStatus.deactivate,
+        numberResult: status === accountStatus.activate ? 1 : 0,
+    };
+};
+
+const EditUser = ({
+    roles,
+    accountStatuses,
+    dispatch,
+    user,
+    handleOnModalClose,
+}) => {
+    const { id, role, isActivated, fullname } = user;
     const { register, handleSubmit } = useForm();
-    const [accountStatus, setAccountStatus] = useState(isActivated);
+    const [_accountStatus, setAccountStatus] = useState(isActivated);
     const [_role, setRole] = useState(role);
 
     /* Submit New Program  */
     const onSubmit = async (data) => {
         const updatedUser = {
             ...data,
-            isActivated: accountStatus,
+            isActivated: formatAccountStatus(_accountStatus).numberResult,
             role: _role,
             id,
         };
@@ -34,6 +53,21 @@ const EditUser = ({ roles, accountStatuses, dispatch, user }) => {
 
     return (
         <form className="body" onSubmit={handleSubmit(onSubmit)}>
+            <div className="account__details">
+                <p>
+                    <b> Name: </b>
+                    {fullname}
+                </p>
+                <p>
+                    <b>Role: </b> {capitalizeFirstLetter(_role)}
+                </p>
+                <p>
+                    <b>Account Status: </b>{' '}
+                    {_accountStatus === 'deactivate'
+                        ? '🔴 | Deactivated'
+                        : '🟢 | Activated'}
+                </p>
+            </div>
             <Input
                 type="select"
                 label="Role"
@@ -46,14 +80,27 @@ const EditUser = ({ roles, accountStatuses, dispatch, user }) => {
             <Input
                 type="select"
                 label="Account Status"
-                data={accountStatuses}
                 name="isActivated"
+                data={accountStatuses}
                 register={register}
-                _onChange={(name, value) => setAccountStatus(value)}
-                value={accountStatus}
+                _onChange={(name, value) => {
+                    setAccountStatus(value);
+                    console.log({
+                        value,
+                        _accountStatus: _accountStatus,
+                    });
+                }}
+                value={_accountStatus}
             />
             <Button name="Update" style="primary" type="submit" />
-            <Button name="Cancel" style="secondary" type="button" />
+            <Button
+                name="Cancel"
+                style="secondary"
+                type="button"
+                onClick={() =>
+                    dispatch(setModalState({ editUserModal: false }))
+                }
+            />
         </form>
     );
 };
@@ -63,11 +110,11 @@ const ManageAccounts = () => {
     const dispatch = useDispatch();
     const { users, updatedObject } = useSelector((state) => state.admin);
     const { editUserModal } = useSelector((state) => state.modal);
-    const [user, setUser] = useState('');
+    const [user, setUser] = useState({});
 
     const roles = [
         {
-            name: 'Filter',
+            name: 'Filter By Role',
             value: 'all',
             disabled: true,
             selected: true,
@@ -94,11 +141,11 @@ const ManageAccounts = () => {
         },
         {
             name: 'Activate',
-            value: Number(1),
+            value: 'activate',
         },
         {
             name: 'Deactivate',
-            value: Number(0),
+            value: 'deactivate',
         },
     ];
 
@@ -121,8 +168,13 @@ const ManageAccounts = () => {
         ],
         data: users || [],
         actions: {
-            edit: ({ id, role, isActivated }) => {
-                setUser({ id, role, isActivated });
+            edit: (_user) => {
+                setUser({
+                    ..._user,
+                    isActivated: formatAccountStatus(_user.isActivated)
+                        .stringResult,
+                });
+                console.log({ dropdown: user });
                 dispatch(setModalState({ editUserModal: true }));
             },
         },
@@ -145,12 +197,13 @@ const ManageAccounts = () => {
                 >
                     <div className="modal__content">
                         <div className="heading">
-                            <h2>Update User</h2>
+                            <h2>Update User Account</h2>
                         </div>
                         <EditUser
                             roles={roles}
                             dispatch={dispatch}
                             accountStatuses={accountStatuses}
+                            handleOnModalClose={handleOnModalClose}
                             user={user}
                         />
                     </div>

@@ -25,9 +25,9 @@ export const createPersonnelAccount = createAsyncThunk(
 
 export const listUsers = createAsyncThunk(
     'admin/list_users',
-    async (role, thunkAPI) => {
+    async (identifier, thunkAPI) => {
         try {
-            const response = await adminService.listUsers(role);
+            const response = await adminService.listUsers(identifier);
 
             if (response['isSuccess']) {
                 return response;

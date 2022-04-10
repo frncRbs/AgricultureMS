@@ -176,8 +176,14 @@ class AdminService {
      * @param {String} role
      * @returns {Object}
      */
-    async listUsers(role) {
-        const response = await User.findAll(role);
+    async listUsers(role, { options }) {
+        const _user = await User.findAll(role);
+
+        let response = null;
+
+        if (options.isIncludeOtherDetails)
+            response = await _user.joinTable(role);
+        else response = _user.response;
 
         return response;
     }

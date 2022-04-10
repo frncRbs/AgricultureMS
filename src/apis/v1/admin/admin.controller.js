@@ -205,9 +205,17 @@ class AdminController {
      * @returns {Object}
      */
     async listUsers(req, res) {
-        const { role } = req.body;
+        const { role, isIncludeOtherDetails, position } = req.body;
 
-        const response = await adminService.listUsers({ role });
+        const response = await adminService.listUsers(
+            { role },
+            {
+                options: {
+                    isIncludeOtherDetails,
+                    position,
+                },
+            }
+        );
 
         return sendResponse({
             res,

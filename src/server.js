@@ -30,7 +30,10 @@ class Server {
     setGlobalMiddlewares(globalMiddlewares) {
         if (NODE_ENV === 'production') {
             this._app.use((req, res, next) => {
-                res.header('Access-Control-Allow-Origin', '*'); // testing
+                res.header(
+                    'Access-Control-Allow-Origin',
+                    'https://ayala-agriculturist.netlify.app'
+                ); // testing
 
                 next();
             });

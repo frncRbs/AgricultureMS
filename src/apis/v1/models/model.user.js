@@ -3,7 +3,6 @@ const mapObjectKey = require('util.map.object-key');
 
 /**
  * This is just a custom schema of an object.
- * This schema supports by the function in helpes/utils/util.filter-truthy-object
  */
 
 const UserSchema = {
@@ -57,7 +56,19 @@ class UserMethods {
 
         const response = await setConnection(sql, toObjectValue);
 
-        return response;
+        const user = {
+            response,
+            joinTable: async (lookupTable) => {
+                const { toPlaceholder, toObjectValue } =
+                    mapObjectKey(lookupTable);
+
+                const sql = `SELECT * FROM users AS u JOIN ${toObjectValue}s AS lt ON u.id = lt.id`;
+
+                return await setConnection(sql);
+            },
+        };
+
+        return user;
     }
 
     /**
